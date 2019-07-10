@@ -1,0 +1,111 @@
+
+<!-- 
+从【a-z】排序
+http://www.w3school.com.cn/tags/index.asp
+
+  html 是超文本标记语言。
+  HTML中我们用标签来进行标记
+  【标签的语法】：
+  1）由成对的尖括号和标签名组成
+  2）标签分为闭合标签和空标签
+      【闭合标签】：由开始标签和结束标签组成，标签之间可以放内容，可以进行标签之间的嵌套
+      【空标签】：没有内容的HTML元素成为空标签，例如<br/>
+ -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- meta
+      编码 元数据
+    这里可以放网页的关键词  -- SEO搜索
+    网页的描述内容
+    视口viewport   快捷键 meta:vb tab (移动端手机页面开发必须加的代码)
+    -->
+
+    <meta charset="utf-8">
+
+    
+    <!-- 标签title，显示在浏览器的标签上的标题 -->
+    <title>这是本地的html</title>
+    <script type="text/javascript">
+      function sayHi(){
+        alert('hinihao')
+      }
+
+      function sayHiWithName(name){
+        alert('hinihao'+ name);
+      }
+      
+    </script>
+  </head>
+  <body>
+    <!-- 标题标签   都是双标记标签-->
+    <h1>我是h1</h1>
+    <h2>我是h2</h2>
+    <h3>我是h3</h3>
+    <h4>我是h4</h4>
+    <h5>我是h5</h5>
+    <h6>我是h6</h6>
+    <hr>
+
+    <!-- 表单标签 -->
+    <input type="button" name="name" value="我是默认文字"><br>
+    <input type="file"><br>
+    <input type="date"><br>
+    <input type="color"><br>
+
+    <!-- 段落标签 -->
+    <p>  我是一个段落标签。这是一首简单的小情歌，唱歌我们快乐的忧伤。我想我很快乐，做一个歌颂者。呼呼呼呼呼就是这么一段话而已，啊大海，你的眼睛里全是水啊</p>
+    <p>  我是一个段落标签。这是一首简单的小情歌，唱歌我们快乐的忧伤。我想我很快乐，做一个歌颂者。呼呼呼呼呼就是这么一段话而已，啊大海，你的眼睛里全是水啊</p>
+    <p>  我是一个段落标签。这是一首简单的小情歌，唱歌我们快乐的忧伤。我想我很快乐，做一个歌颂者。呼呼呼呼呼就是这么一段话而已，啊大海，你的眼睛里全是水啊</p>
+
+    <!-- 图像标签 -->
+    <!-- src的路径主要分为：
+    相对路径：资源在当前的项目中    ../    ././
+    绝对路径：资源不在当前的项目中    网络上，本地    http://  https:// ftp:// file:///
+    alt :当图片不能正常显示的时候，给与提示
+   -->
+    <img src="http://img.hb.aicdn.com/50276052c089610935cff4fb0c5778e160d16b7b67cd8-X45iyV_fw658" alt="这是美图"  width="150" title="鼠标放在上面会显示提示信息"/>
+
+    <!-- 换行标签 -->
+    <br>
+
+    <!-- 容器标签  div  span   用来容纳其他标签 -->
+    <div class="div">
+      <text>我是div</text>
+    </div>
+
+    <span>span</span>
+
+    <!-- 表格标签   table tr  td -->
+
+    <!--  列表标签-->
+      <!--  无序列表 默认小黑点-->
+      <ul>
+        <li>我是无序列表</li>
+        <li>我是无序列表</li>
+        <li>我是无序列表</li>
+        <li>我是无序列表</li>
+      </ul>
+
+      <!-- 有序列表  默认数字-->
+      <ol type="a">
+        <li>我是有序列表</li>
+        <li>我是有序列表</li>
+        <li>我是有序列表</li>
+        <li>我是有序列表</li>
+      </ol>
+
+      <!-- 链接标签 a
+      target = "_self" 表示在当前标签页打开
+      target = "_blank" 表示在新标签页打开
+      # 表示没有链接，不过点击的话还是会打开一个当前页面一模一样的，如果不想要点击跳转的话用：javascript:;
+      -->
+      <a href="#">我是链接标签</a>
+      <a href="https://www.baidu.com/" target="_self">百度-在当前页面打开</a>
+      <a href="https://www.baidu.com/" target="_blank">百度-在新标签页打开</a>
+      <a href="javascript:;">这个不做任何跳转</a>
+      <br>
+    <button type="button" onclick="sayHi()">点击我啊</button>
+  </body>
+</html>
+

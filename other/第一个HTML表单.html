@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>第一个HTML表单</title>
+</head>
+<body>
+	<form>
+<!-- 		<fieldset></fieldset>
+
+ -->		
+ 		<fieldset>
+ 		<legend>我是标题</legend>
+		姓名:<br>
+		<input type="text" name="yourName">
+		<br>
+		年龄:<br>
+		<input type="text" name="yourAge">
+	</form>
+
+
+	<form>
+		<label for="male">男</label>
+		<input type="radio" name="sex" id="male"/>
+		<br>
+		<label for="female">女</label>
+		<input type="radio" name="sex" id="female">
+		<br>
+		<input type="tel" name="tel">
+		<br>
+		<textarea cols="10" rows="10"></textarea>
+
+		<br>
+
+		<select size="1" multiple="multiple">
+			<option>选项1</option>
+			<option>选项2</option>
+			<option>选项3</option>
+			<option>选项4</option>
+			<option>选项5</option>
+
+		</select>
+	</form>
+
+		<label for="myColor">What`s your favorite color?</label>
+		<input type="text" name="myColor" id="myColor" list="mySuggestion">
+		<datalist id="mySuggestion">
+			<option>black</option>
+			<option>blue</option>
+			<option>green</option>
+			<option>red</option>
+			<option>yellow</option>
+			<option>white</option>
+		</datalist>
+
+
+		<fieldset>
+    <legend>What is your favorite color?</legend>
+    <ul>
+        <li>
+            <label for="red">red</label>
+            <input type="radio" checked id="red" name="color" value="red">
+        </li>
+        <li>
+            <label for="yellow">yellow</label>
+            <input type="radio" id="yellow" name="color" value="yellow">
+        </li>
+        <li>
+            <label for="blue">blue</label>
+            <input type="radio" id="blue" name="color" value="blue">
+        </li>
+    </ul>
+</fieldset>
+
+</body>
+</html>

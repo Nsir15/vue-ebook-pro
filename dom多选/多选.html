@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form  action="" method="post">
+      你爱好的运动是 <input type="checkbox" id="checkboxAllBox"> 全选/全不选
+      <br>
+      <input type="checkbox" name="item" value="足球">  足球
+      <input type="checkbox" name="item" value="篮球">  篮球
+      <input type="checkbox" name="item" value="羽毛球">  羽毛球
+      <input type="checkbox" name="item" value="乒乓球">  乒乓球
+
+      <br>
+      <input type="button" value="全选" id="checkAll">  
+      <input type="button" value="全不选" id="checkNotAll">  
+      <input type="button" value="反选" id="checkRev">  
+      <input type="button" value="发送" id="submit">  
+    </form>
+
+    <script>
+    
+        var addEvent = function(element,eventName,callback){
+            element.addEventListener(eventName,callback);
+        }
+
+        var log = function(){
+          console.log.apply(console,arguments);
+        }
+
+        var elementById = function(ID){
+            return document.getElementById(ID);
+        }
+
+        var bindAction = function(){
+
+          // 全选绑定事件
+            addEvent(elementById('checkAll'),'click',function(event){
+                var items = document.getElementsByName('item');
+                for (let index = 0; index < items.length; index++) {
+                  const element = items[index];
+                  element.checked = true;
+                }
+            })
+
+
+            // 全不选绑定事件
+            // 另一种方式来绑定
+            var checkNotAll = elementById('checkNotAll');
+            checkNotAll.onclick = function(){
+              var items = document.getElementsByName('item');
+              for (let index = 0; index < items.length; index++) 
+              { 
+                const element=items[index]; 
+                log(element.checked)
+                element.checked = false;
+               }
+            }
+
+
+            // 反选 绑定事件
+            addEvent(elementById('checkRev'),'click',function(){
+              var items = document.getElementsByName('item');
+              for (let index = 0; index < items.length; index++) {
+                 const element=items[index]; 
+                element.checked = !element.checked; 
+              }
+            })
+
+            // 发送
+            addEvent(elementById('submit'),'click',function(){
+              var items = document.getElementsByName('item');
+              for (let index = 0; index < items.length; index++) {
+                const element = items[index];
+                if (element.checked) {
+                  alert(element.value) 
+                }
+              }
+            })
+        }
+
+        var __main = function(){
+          bindAction()
+        }
+
+        __main();
+
+    </script>
+  </body>
+</html>

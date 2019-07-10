@@ -1,0 +1,38 @@
+<!-- 单页应用 -->
+<!-- 
+    //添加todo 
+    //存储到localstorage
+    //获取todo
+    //显示列表
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单页应用</title>
+    <style>
+        .dom-hidden{
+            display: none
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button class="home-tab" data-in="editor">添加task</button>
+        <button class="home-tab" data-in="list">task列表</button>
+    </div>
+    <div class="task-page task-editor">
+        <input class="task-input" type="text">
+        <button class="task-add">添加</button>
+    </div>
+
+    <div class="task-page task-list">
+
+    </div>
+    <script src="Common.js"></script>
+    <script src="taskApi.js"></script>
+    <script src="taskApp.js"></script>
+</body>
+</html>

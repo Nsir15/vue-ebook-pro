@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .hidden{
+            display: none
+        }
+
+        .dom2-container img{
+            width: 100px;
+            height: 100px;
+            filter: grayscale();
+        }
+
+        .dom2-container .img-highlight{
+            filter: initial;
+            width: 150px;
+            height: 150px;
+        }
+
+        .dom2-container img{
+            /* transition 这个 css 指定了某个属性发生变化的时候自动使用动画效果和动画时间 */
+            transition: width 1s , height 1s
+        }
+
+
+        /* dom3 */
+
+        .dom3-slide-image{
+            display: none;
+        }
+
+        .dom3-slide-active{
+            display: inline-block
+        }
+
+        .image-slider{
+            position: relative;
+            display: inline-block;
+            text-align: center;
+        }
+        .slide-button{
+            right: 0px;
+        }
+        .slide-button-center{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .slider-indicator-default{
+            width: 10px;
+            height: 10px;
+            background: red;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .slider-indicator-active{
+            background: white;
+        }
+
+        .slide-indicator{
+            outline: 1px red dashed;
+            position: absolute;
+            bottom: 10px;
+            transform: translateX(400%);
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="dom1-container">
+        <div class="dom1">
+            <button class="toggle-button">点击查看更多</button>
+            <div class="content">更多内容</div>
+        </div>
+        <div class="dom1">
+            <button class="toggle-button">点击查看更多</button>
+            <div class="content">更多内容</div>
+        </div>
+    </div>
+
+    <br>
+    <p>Dom2部分================================</p>
+
+    <div class="dom2-container">
+        <div class="image-list">
+            <image class="item" src="1.jpg"/>
+            <image class="item" src="2.jpg" />
+            <image class="item" src="3.jpg" />
+        </div>
+    </div>
+
+    <br>
+    <p>Dom3部分********************************</p>
+    <div class="dom3-container">
+        <div class="image-slider" data-id="0" data-images=3>
+            <img id='image-0' class = "dom3-slide-image dom3-slide-active" src="slideimages/1.jpg" alt="">
+            <img id='image-1' class = "dom3-slide-image" src="slideimages/2.jpg" alt="">
+            <img id='image-2' class = "dom3-slide-image" src="slideimages/3.jpg" alt="">
+            <button class="slide-button slide-button-center">下一张</button>
+            <div class="slide-indicator" data-id="0">
+                <div id="indicator-0" class="slider-indicator-default slider-indicator-active"></div>
+                <div id="indicator-1" class="slider-indicator-default"></div>
+                <div id="indicator-2" class="slider-indicator-default"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="dom1.js"></script>
+    <script src="dom2.js"></script>
+    <script src="dom3.js"></script>
+</body>
+</html>
