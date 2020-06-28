@@ -1,16 +1,12 @@
 <template>
- <div id="ebook">
-   <ebook-reader></ebook-reader>
+ <div id="reader">
+{{$route.params.filename}}
  </div>
 </template>
 
 <script>
-import EbookReader from '../../components/ebook/EbookReader'
-
 export default {
-  components: {
-    EbookReader
-  },
+  components: {},
   props: {},
   data () {
     return {

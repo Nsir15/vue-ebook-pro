@@ -10,7 +10,11 @@ const routes = [
   },
   {
     path: '/ebook',
-    component: () => import('../views/ebook')
+    component: () => import('../views/ebook'),
+    children: [{
+      path: ':filename',
+      component: () => import('../components/ebook/EbookReader.vue')
+    }]
   }
 ]
 
