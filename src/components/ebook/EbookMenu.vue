@@ -4,6 +4,7 @@
       <div
         class="menu-wrapper"
         v-show="menuAndNavVisible"
+        :class="{'hide-shadow':settingVisible >= 0}"
       >
         <div class="icon-wrapper" @click="showSetting(3)">
           <span class="icon-menu"></span>
@@ -57,7 +58,7 @@ export default {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: px2rem(60);
+    height: px2rem(48);
     z-index: 110;
     background: white;
     box-shadow: 0 px2rem(-8) px2rem(8) rgba(0, 0, 0, 0.15);

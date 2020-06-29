@@ -54,7 +54,7 @@ export default {
 .setting-wrapper {
   position: absolute;
   left: 0;
-  bottom: px2rem(60);
+  bottom: px2rem(48);
   width: 100%;
   height: px2rem(60);
   background: white;

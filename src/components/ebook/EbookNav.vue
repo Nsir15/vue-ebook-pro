@@ -47,7 +47,7 @@ export default {
   left: 0;
   top: 0;
   width: 100%;
-  height: px2rem(64);
+  height: px2rem(48);
   z-index: 101;
   background: white;
   display: flex;
