@@ -23,15 +23,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { ebookMixin } from '../../utils/mixin'
 export default {
+  mixins: [ebookMixin],
   components: {},
   props: {},
   data () {
     return {}
   },
   computed: {
-    ...mapGetters(['menuAndNavVisible'])
   },
   created () {},
   mounted () {},
