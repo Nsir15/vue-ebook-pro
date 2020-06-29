@@ -7,10 +7,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { ebookMixin } from '../../utils/mixin'
+import { mapActions } from 'vuex'
 import Epub from 'epubjs'
 
 export default {
+  mixins: [ebookMixin],
   components: {
   },
   props: {},
@@ -20,15 +22,18 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['fileName', 'menuAndNavVisible'])
   },
   mounted () {
     const fileName = this.$route.params.filename.split('|').join('/')
-    this.$store.dispatch('setFileName', fileName).then(() => {
+    // this.$store.dispatch('setFileName', fileName).then(() => {
+    //   this.initEpub()
+    // })
+    this.setFileName(fileName).then(() => {
       this.initEpub()
     })
   },
   methods: {
+    ...mapActions(['setFileName', 'setMenuAndNavVisible']),
     prevPage () {
       if (this.rendition) {
         this.rendition.prev()
@@ -40,7 +45,8 @@ export default {
       }
     },
     showNavAndMenu () {
-      this.$store.dispatch('setMenuAndNavVisible', !this.menuAndNavVisible)
+      // this.$store.dispatch('setMenuAndNavVisible', !this.menuAndNavVisible)
+      this.setMenuAndNavVisible(!this.menuAndNavVisible)
     },
     initEpub () {
       // const baseUrl = 'http://192.168.1.3:9001/epub/'
