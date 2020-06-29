@@ -50,8 +50,7 @@ export default {
       this.setMenuAndNavVisible(!this.menuAndNavVisible)
     },
     initEpub () {
-      // const baseUrl = 'http://192.168.1.3:9001/epub/'
-      const baseUrl = 'http://192.168.3.10:9001/epub/'
+      const baseUrl = process.env.VUE_APP_RES_URL + '/epub/'
       const url = baseUrl + this.fileName + '.epub'
       this.book = new Epub(url)
       this.setCurrentBook(this.book)
