@@ -10,6 +10,9 @@ const actions = {
   },
   setDefaultFontSize: ({ commit }, defaultFontSize) => {
     return commit('SET_DEFAULT_FONT_SIZE', defaultFontSize)
+  },
+  setCurrentBook: ({ commit }, book) => {
+    return commit('SET_CURRENT_BOOK', book)
   }
 }
 

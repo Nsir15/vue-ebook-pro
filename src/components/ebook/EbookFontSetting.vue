@@ -44,6 +44,7 @@ export default {
   methods: {
     setFontSize (fontSize) {
       this.setDefaultFontSize(fontSize)
+      this.currentBook.rendition.themes.fontSize(fontSize)
     }
   }
 }

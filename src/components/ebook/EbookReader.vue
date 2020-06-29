@@ -54,6 +54,7 @@ export default {
       const baseUrl = 'http://192.168.3.10:9001/epub/'
       const url = baseUrl + this.fileName + '.epub'
       this.book = new Epub(url)
+      this.setCurrentBook(this.book)
       this.rendition = this.book.renderTo('reader', {
         width: innerWidth,
         height: innerHeight,

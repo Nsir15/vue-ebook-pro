@@ -3,7 +3,8 @@ const book = {
     fileName: '',
     menuAndNavVisible: false,
     settingVisible: -1, // -1 不显示,0:字体设置 1:主题 2:进度  3:目录
-    defaultFontSize: 16
+    defaultFontSize: 16,
+    currentBook: null
   },
   mutations: {
     SET_FILENAME: (state, fileName) => {
@@ -17,6 +18,9 @@ const book = {
     },
     SET_DEFAULT_FONT_SIZE: (state, defaultFontSize) => {
       state.defaultFontSize = defaultFontSize
+    },
+    SET_CURRENT_BOOK: (state, currentBook) => {
+      state.currentBook = currentBook
     }
   }
 }
