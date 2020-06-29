@@ -29,6 +29,17 @@ export default {
     })
   },
   methods: {
+    prevPage () {
+      if (this.rendition) {
+        this.rendition.prev()
+      }
+    },
+    nextPage () {
+      if (this.rendition) {
+        this.rendition.next()
+      }
+    },
+    showNavAndMenu () {},
     initEpub () {
       // const baseUrl = 'http://192.168.1.3:9001/epub/'
       const baseUrl = 'http://192.168.3.10:9001/epub/'
@@ -40,6 +51,31 @@ export default {
         method: 'default'
       })
       this.rendition.display()
+      // 添加touch事件
+      this.rendition.on('touchstart', event => {
+        this.touchStartX = event.changedTouches[0].clientX
+        this.touchStartTime = event.timeStamp
+      })
+      this.rendition.on('touchend', event => {
+        // 移动距离
+        const offsetX = event.changedTouches[0].clientX - this.touchStartX
+        // 手势时间
+        const time = event.timeStamp - this.touchStartTime
+
+        // 这里规定  时间小于500 距离大于40 进行翻页
+        if (time < 500 && offsetX > 40) {
+          this.prevPage()
+        } else if (time < 500 && offsetX < -40) {
+          this.nextPage()
+        } else {
+          this.showNavAndMenu()
+        }
+
+        //  阻止默认事件
+        event.preventDefault()
+        // 禁止冒泡
+        event.stopPropagation()
+      })
     }
   }
 }
