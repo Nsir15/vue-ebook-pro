@@ -19,14 +19,19 @@
         </div>
       </div>
     </transition>
+    <ebook-font-setting></ebook-font-setting>
   </div>
 </template>
 
 <script>
 import { ebookMixin } from '../../utils/mixin'
+import EbookFontSetting from '../../components/ebook/EbookFontSetting'
+
 export default {
   mixins: [ebookMixin],
-  components: {},
+  components: {
+    EbookFontSetting
+  },
   props: {},
   data () {
     return {}
@@ -35,7 +40,11 @@ export default {
   },
   created () {},
   mounted () {},
-  methods: {}
+  methods: {
+    showSetting (tag) {
+      this.setSettingVisible(tag)
+    }
+  }
 }
 </script>
 

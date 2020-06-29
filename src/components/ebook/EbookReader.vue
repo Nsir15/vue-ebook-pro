@@ -44,6 +44,9 @@ export default {
     },
     showNavAndMenu () {
       // this.$store.dispatch('setMenuAndNavVisible', !this.menuAndNavVisible)
+      if (this.menuAndNavVisible) {
+        this.setSettingVisible(-1)
+      }
       this.setMenuAndNavVisible(!this.menuAndNavVisible)
     },
     initEpub () {

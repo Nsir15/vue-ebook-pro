@@ -1,7 +1,9 @@
 const book = {
   state: {
     fileName: '',
-    menuAndNavVisible: false
+    menuAndNavVisible: false,
+    settingVisible: -1, // -1 不显示,0:字体设置 1:主题 2:进度  3:目录
+    defaultFontSize: 16
   },
   mutations: {
     SET_FILENAME: (state, fileName) => {
@@ -9,6 +11,12 @@ const book = {
     },
     SET_MENUANDNAV_VISIBLE: (state, menuAndNavVisible) => {
       state.menuAndNavVisible = menuAndNavVisible
+    },
+    SET_SETTINGVISIBLE: (state, settingVisible) => {
+      state.settingVisible = settingVisible
+    },
+    SET_DEFAULT_FONT_SIZE: (state, defaultFontSize) => {
+      state.defaultFontSize = defaultFontSize
     }
   }
 }
