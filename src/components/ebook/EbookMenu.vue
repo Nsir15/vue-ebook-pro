@@ -58,7 +58,7 @@ export default {
     bottom: 0;
     width: 100%;
     height: px2rem(60);
-    z-index: 101;
+    z-index: 110;
     background: white;
     box-shadow: 0 px2rem(-8) px2rem(8) rgba(0, 0, 0, 0.15);
     display: flex;
