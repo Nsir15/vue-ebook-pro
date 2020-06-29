@@ -21,17 +21,20 @@
       </div>
     </transition>
     <ebook-font-setting></ebook-font-setting>
+    <ebook-font-family-popup></ebook-font-family-popup>
   </div>
 </template>
 
 <script>
 import { ebookMixin } from '../../utils/mixin'
 import EbookFontSetting from '../../components/ebook/EbookFontSetting'
+import EbookFontFamilyPopup from '../../components/ebook/EbookFontFamilyPopup'
 
 export default {
   mixins: [ebookMixin],
   components: {
-    EbookFontSetting
+    EbookFontSetting,
+    EbookFontFamilyPopup
   },
   props: {},
   data () {

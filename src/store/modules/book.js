@@ -5,6 +5,7 @@ const book = {
     settingVisible: -1, // -1 不显示,0:字体设置 1:主题 2:进度  3:目录
     defaultFontSize: 16,
     defaultFontFamily: 'Default',
+    fontFamilyVisible: false,
     currentBook: null
   },
   mutations: {
@@ -25,6 +26,9 @@ const book = {
     },
     SET_CURRENT_BOOK: (state, currentBook) => {
       state.currentBook = currentBook
+    },
+    SET_FONT_FAMILY_VISIBLE: (state, visible) => {
+      state.fontFamilyVisible = visible
     }
   }
 }
