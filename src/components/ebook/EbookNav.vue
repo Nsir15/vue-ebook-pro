@@ -1,7 +1,7 @@
 <template>
   <div class="ebook-nav">
     <transition name="slide-down">
-      <div class="title-wrapper">
+      <div class="title-wrapper"  v-show="menuAndNavVisible">
         <div class="left">
           <div class="icon-wrapper">
             <span class="icon-back"></span>
@@ -24,13 +24,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   components: {},
   props: {},
   data () {
     return {}
   },
-  computed: {},
+  computed: {
+    ...mapGetters(['menuAndNavVisible'])
+  },
 
   mounted () {},
   methods: {}

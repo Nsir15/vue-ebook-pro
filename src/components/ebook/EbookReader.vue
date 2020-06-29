@@ -20,7 +20,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['fileName'])
+    ...mapGetters(['fileName', 'menuAndNavVisible'])
   },
   mounted () {
     const fileName = this.$route.params.filename.split('|').join('/')
@@ -39,7 +39,9 @@ export default {
         this.rendition.next()
       }
     },
-    showNavAndMenu () {},
+    showNavAndMenu () {
+      this.$store.dispatch('setMenuAndNavVisible', !this.menuAndNavVisible)
+    },
     initEpub () {
       // const baseUrl = 'http://192.168.1.3:9001/epub/'
       const baseUrl = 'http://192.168.3.10:9001/epub/'
