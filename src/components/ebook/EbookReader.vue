@@ -30,7 +30,8 @@ export default {
   },
   methods: {
     initEpub () {
-      const baseUrl = 'http://192.168.1.3:9001/epub/'
+      // const baseUrl = 'http://192.168.1.3:9001/epub/'
+      const baseUrl = 'http://192.168.3.10:9001/epub/'
       const url = baseUrl + this.fileName + '.epub'
       this.book = new Epub(url)
       this.rendition = this.book.renderTo('reader', {
