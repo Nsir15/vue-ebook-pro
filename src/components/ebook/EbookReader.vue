@@ -133,6 +133,19 @@ export default {
         ]).then(() => {
         })
       })
+
+      // 获取location对象
+      // console.log(this.book.location)  // 默认是空的，因为location 对象比较耗性能
+      // 通过ebook的钩子函数来生成location
+      // book 解析完成时候会回调
+      this.book.ready.then(() => {
+      // 获取navigation对象  目录需要使用
+        this.navigation = this.book.navigation
+        return this.book.locations.generate()
+      }).then(result => {
+        this.locations = this.book.locations
+        this.setBookAvailable(true)
+      })
     }
   }
 }
