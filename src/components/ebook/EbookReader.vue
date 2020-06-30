@@ -95,6 +95,7 @@ export default {
         this.initFontSize()
         this.initFontFamily()
         this.initTheme()
+        this.initGlobalStyle()
       })
       // 添加touch事件
       this.rendition.on('touchstart', event => {

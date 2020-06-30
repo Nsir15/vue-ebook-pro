@@ -1,9 +1,9 @@
 <template>
   <transition name="slide-up">
     <div class="setting-wrapper" v-show=" menuAndNavVisible && settingVisible === 0">
-      <div class="font-setting">
+      <div class="setting-font-size">
         <div class="font-icon" :style="{fontSize:fontList[0].fontSize + 'px'}">A</div>
-        <div class="select-container">
+        <div class="select">
           <div
             class="select-wrapper"
             v-for="(item,index) in fontList"
@@ -76,7 +76,7 @@ export default {
   z-index: 101;
   display: flex;
   flex-direction: column;
-  .font-setting {
+  .setting-font-size {
     flex: 2;
     display: flex;
 
@@ -85,7 +85,7 @@ export default {
       @include center;
     }
 
-    .select-container {
+    .select {
       flex: 1;
       display: flex;
 

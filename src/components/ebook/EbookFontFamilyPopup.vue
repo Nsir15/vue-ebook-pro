@@ -1,6 +1,6 @@
 <template>
   <transition name="popup-slide-up">
-    <div class="font-family-popup" v-show="fontFamilyVisible">
+    <div class="ebook-popup-list" v-show="fontFamilyVisible">
       <div class="font-family-popup-title">
         <div class="popup-title-icon" @click="dismissPopup">
           <span class="icon-down2"></span>
@@ -62,7 +62,7 @@ export default {
 <style scoped lang="scss">
 @import "../../assets/styles/global";
 
-.font-family-popup {
+.ebook-popup-list {
   position: absolute;
   left: 0;
   bottom: 0;

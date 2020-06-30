@@ -1,18 +1,18 @@
 <template>
   <transition name="slide-up">
     <div class="setting-wrapper" v-show=" menuAndNavVisible && settingVisible === 1">
-      <div class="theme-setting">
+      <div class="setting-theme">
         <div
-          class="theme-item"
+          class="setting-theme-item"
           v-for="(item,index) in themeList"
           :key="index"
           @click="setTheme(index)">
           <div
-            class="theme-preview"
+            class="preview"
             :style="{background:item.style.body.background}"
-            :class="{'no-border':item.style.body.background !== '#fff'}">
+            :class="{'selected':item.name === defaultTheme}">
           </div>
-          <div class="theme-title" :class="{'selected':item.name === defaultTheme}">{{item.name}}</div>
+          <div class="text" :class="{'selected':item.name === defaultTheme}">{{item.name}}</div>
         </div>
       </div>
     </div>
@@ -40,6 +40,7 @@ export default {
       this.setDefaultTheme(theme).then(() => {
         this.currentBook.rendition.themes.select(theme)
         saveTheme(this.fileName, theme)
+        this.initGlobalStyle()
       })
     }
   }
@@ -59,25 +60,25 @@ export default {
     box-shadow: 0 px2rem(-8) px2rem(8) rgba(0, 0, 0, 0.15);
     z-index: 101;
 
-    .theme-setting {
+    .setting-theme {
       height: 100%;
       display: flex;
 
-      .theme-item {
+      .setting-theme-item {
         flex: 1;
         padding: px2rem(2);
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         padding: px2rem(5);
-        .theme-preview{
+        .preview{
           flex: 1;
           border: 1px solid #ccc;
-          &.no-border{
-            border: none;
+          &.selected{
+            box-shadow: 0 px2rem(4) px2rem(6) 0 rgba(0, 0, 0, .1);
           }
         }
-        .theme-title {
+        .text {
           margin-top: px2rem(5);
           font-size: px2rem(12);
           color: #ccc;
