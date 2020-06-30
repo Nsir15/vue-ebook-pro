@@ -22,6 +22,7 @@
     </transition>
     <ebook-font-setting></ebook-font-setting>
     <ebook-font-family-popup></ebook-font-family-popup>
+    <ebook-theme></ebook-theme>
   </div>
 </template>
 
@@ -29,12 +30,14 @@
 import { ebookMixin } from '../../utils/mixin'
 import EbookFontSetting from '../../components/ebook/EbookFontSetting'
 import EbookFontFamilyPopup from '../../components/ebook/EbookFontFamilyPopup'
+import EbookTheme from '../../components/ebook/EbookTheme'
 
 export default {
   mixins: [ebookMixin],
   components: {
     EbookFontSetting,
-    EbookFontFamilyPopup
+    EbookFontFamilyPopup,
+    EbookTheme
   },
   props: {},
   data () {

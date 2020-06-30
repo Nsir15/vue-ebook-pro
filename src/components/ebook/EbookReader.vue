@@ -8,7 +8,8 @@
 
 <script>
 import { ebookMixin } from '../../utils/mixin'
-import { saveFontFamily, getFontFamily, saveFontSize, getFontSize } from '../../utils/localStorage'
+import { saveFontFamily, getFontFamily, saveFontSize, getFontSize, saveTheme, getTheme } from '../../utils/localStorage'
+import { themeList } from '../../utils/book'
 import Epub from 'epubjs'
 
 export default {
@@ -22,6 +23,9 @@ export default {
     }
   },
   computed: {
+    themeList () {
+      return themeList(this)
+    }
   },
   mounted () {
     const fileName = this.$route.params.filename.split('|').join('/')
@@ -67,6 +71,19 @@ export default {
       }
       this.rendition.themes.font(fontFamily)
     },
+    initTheme () {
+      let defaultTheme = getTheme(this.fileName)
+      if (!defaultTheme) {
+        defaultTheme = this.themeList[0].name
+        saveTheme(defaultTheme)
+      }
+      this.setDefaultTheme(defaultTheme)
+      this.themeList.forEach(theme => {
+        this.rendition.themes.register(theme.name, theme.style)
+      })
+      // 初始化默认主题
+      this.rendition.themes.select(defaultTheme)
+    },
     initEpub () {
       const baseUrl = process.env.VUE_APP_RES_URL + '/epub/'
       const url = baseUrl + this.fileName + '.epub'
@@ -80,6 +97,7 @@ export default {
       this.rendition.display().then(() => {
         this.initFontSize()
         this.initFontFamily()
+        this.initTheme()
       })
       // 添加touch事件
       this.rendition.on('touchstart', event => {

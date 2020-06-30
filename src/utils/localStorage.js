@@ -60,3 +60,11 @@ export function saveLocale (locale) {
 export function getLocale () {
   getLocalStorage('locale')
 }
+
+export function saveTheme (fileName, theme) {
+  setBookObj(fileName, 'theme', theme)
+}
+
+export function getTheme (fileName) {
+  return getBookObj(fileName, 'theme')
+}

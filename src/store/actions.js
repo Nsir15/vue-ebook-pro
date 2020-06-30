@@ -19,6 +19,9 @@ const actions = {
   },
   setCurrentBook: ({ commit }, book) => {
     return commit('SET_CURRENT_BOOK', book)
+  },
+  setDefaultTheme: ({ commit }, theme) => {
+    return commit('SET_DEFAULT_THEME', theme)
   }
 }
 
