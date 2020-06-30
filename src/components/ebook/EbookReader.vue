@@ -50,6 +50,7 @@ export default {
       this.setMenuAndNavVisible(!this.menuAndNavVisible)
     },
     initEpub () {
+      debugger
       const baseUrl = process.env.VUE_APP_RES_URL + '/epub/'
       const url = baseUrl + this.fileName + '.epub'
       this.book = new Epub(url)
