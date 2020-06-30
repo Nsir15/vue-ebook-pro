@@ -8,6 +8,7 @@
 
 <script>
 import { ebookMixin } from '../../utils/mixin'
+import { saveFontFamily, getFontFamily, saveFontSize, getFontSize } from '../../utils/localStorage'
 import Epub from 'epubjs'
 
 export default {
@@ -24,9 +25,6 @@ export default {
   },
   mounted () {
     const fileName = this.$route.params.filename.split('|').join('/')
-    // this.$store.dispatch('setFileName', fileName).then(() => {
-    //   this.initEpub()
-    // })
     this.setFileName(fileName).then(() => {
       this.initEpub()
     })
@@ -49,8 +47,27 @@ export default {
       }
       this.setMenuAndNavVisible(!this.menuAndNavVisible)
     },
+    initFontSize () {
+      let fontSize = getFontSize(this.fileName)
+      if (!fontSize) {
+        fontSize = this.defaultFontSize
+        saveFontSize(this.fileName, this.defaultFontSize)
+      } else {
+        this.setDefaultFontSize(fontSize)
+      }
+      this.rendition.themes.fontSize(fontSize)
+    },
+    initFontFamily () {
+      let fontFamily = getFontFamily(this.fileName)
+      if (!fontFamily) {
+        fontFamily = this.defaultFontFamily
+        saveFontFamily(this.fileName, this.defaultFontFamily)
+      } else {
+        this.setDefaultFontFamily(fontFamily)
+      }
+      this.rendition.themes.font(fontFamily)
+    },
     initEpub () {
-      debugger
       const baseUrl = process.env.VUE_APP_RES_URL + '/epub/'
       const url = baseUrl + this.fileName + '.epub'
       this.book = new Epub(url)
@@ -60,7 +77,10 @@ export default {
         height: innerHeight,
         method: 'default'
       })
-      this.rendition.display()
+      this.rendition.display().then(() => {
+        this.initFontSize()
+        this.initFontFamily()
+      })
       // 添加touch事件
       this.rendition.on('touchstart', event => {
         this.touchStartX = event.changedTouches[0].clientX
