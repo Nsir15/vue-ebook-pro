@@ -5,7 +5,7 @@
         <div class="popup-title-icon" @click="dismissPopup">
           <span class="icon-down2"></span>
         </div>
-        <div class="popup-title-text">设置字体</div>
+        <div class="popup-title-text">{{$t('book.selectFont')}}</div>
       </div>
       <div class="font-family-popup-list">
         <div
