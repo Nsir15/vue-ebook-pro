@@ -9,7 +9,6 @@
 <script>
 import { ebookMixin } from '../../utils/mixin'
 import { saveFontFamily, getFontFamily, saveFontSize, getFontSize, saveTheme, getTheme } from '../../utils/localStorage'
-import { themeList } from '../../utils/book'
 import Epub from 'epubjs'
 
 export default {
@@ -23,9 +22,7 @@ export default {
     }
   },
   computed: {
-    themeList () {
-      return themeList(this)
-    }
+
   },
   mounted () {
     const fileName = this.$route.params.filename.split('|').join('/')
