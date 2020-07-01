@@ -28,9 +28,11 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+ // 家里的网的IP
+VUE_APP_RES_URL = http://192.168.1.3:9001   
 
-VUE_APP_RES_URL = http://192.168.1.3:9001     // 家里的网的IP
-VUE_APP_RES_URL = http://192.168.3.10:9001    // 公司的IP
+// 公司的IP 
+VUE_APP_RES_URL = http://192.168.3.10:9001    
 
 
 

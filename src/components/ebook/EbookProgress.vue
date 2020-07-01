@@ -1,7 +1,7 @@
 <template>
  <transition name="slide-up">
     <div class="setting-wrapper" v-show=" menuAndNavVisible && settingVisible === 2">
-      <div class="progress-setting">
+      <div class="setting-progress">
           <div class="progress-wrapper">
             <input class="progress"
                     type="range"
@@ -40,9 +40,24 @@ export default {
   mounted () {
 
   },
+  updated () {
+    this.updateProgressBackground()
+  },
   methods: {
-    onProgressChange (progress) {},
-    onProgressInput (progress) {}
+    updateProgressBackground () {
+    // 更新input进度背景样式
+      this.$refs.progress.style.backgroundSize = `${this.progress}% 100%`
+    },
+    // 手指停止拖动的时候
+    onProgressChange (progress) {
+      const location = this.currentBook.locations.cfiFromPercentage(progress / 100)
+      this.currentBook.rendition.display(location)
+    },
+    // 手指拖动的时候
+    onProgressInput (progress) {
+      this.setProgress(progress)
+      this.updateProgressBackground()
+    }
 
   }
 }
@@ -61,7 +76,7 @@ export default {
     box-shadow: 0 px2rem(-8) px2rem(8) rgba(0, 0, 0, 0.15);
     z-index: 110;
 
-    .progress-setting{
+    .setting-progress{
       display: flex;
       flex-direction: column;
       height: 100%;
@@ -72,8 +87,8 @@ export default {
           width: 100%;
           height: px2rem(2);
           appearance: none;
-          background: -webkit-linear-gradient(#999,#999) no-repeat,#ddd;
-          background-size: 0 100%;
+          // background: -webkit-linear-gradient(#999,#999) no-repeat,#ddd;
+          // background-size: 0 100%;
           &:focus{
             outline: none;
           }
