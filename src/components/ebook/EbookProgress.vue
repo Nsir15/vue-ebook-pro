@@ -50,10 +50,23 @@ export default {
     this.updateProgressBackground()
   },
   methods: {
+    // 刷新进度条位置
+    updateLocation () {
+      const currentLocation = this.currentBook.rendition.currentLocation()
+      if (currentLocation && currentLocation.start) {
+        // 章节开始的位置
+        const startCfi = currentLocation.start.cfi
+        const progress = this.currentBook.locations.percentageFromCfi(startCfi)
+        this.setProgress(Math.floor(progress * 100))
+        this.setSection(currentLocation.start.index)
+      }
+    },
     displaySection () {
       const sectionInfo = this.currentBook.section(this.section)
       if (sectionInfo && sectionInfo.href) {
-        this.currentBook.rendition.display(sectionInfo.href)
+        this.currentBook.rendition.display(sectionInfo.href).then(_ => {
+          this.updateLocation()
+        })
       }
     },
     prevSection () {
