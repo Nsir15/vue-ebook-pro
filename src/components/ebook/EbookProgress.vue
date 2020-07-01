@@ -45,7 +45,7 @@ export default {
       if (this.section) {
         const sectionInfo = this.currentBook.section(this.section)
         if (sectionInfo && sectionInfo.href) {
-          return this.currentBook.navigation.get(sectionInfo.href).label
+          return this.currentBook.navigation.get(sectionInfo.href) ? this.currentBook.navigation.get(sectionInfo.href).label : ''
         }
       }
       return ''
