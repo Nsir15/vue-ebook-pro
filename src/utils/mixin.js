@@ -1,5 +1,6 @@
 import { mapGetters, mapActions } from 'vuex'
 import { themeList, clearThemeCss, addCss } from './book'
+import { saveLocation } from '../utils/localStorage'
 
 export const ebookMixin = {
   computed: {
@@ -55,6 +56,21 @@ export const ebookMixin = {
         default:
           addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_default.css`)
           break
+      }
+    },
+
+    // 刷新进度条位置
+    updateLocation () {
+      const currentLocation = this.currentBook.rendition.currentLocation()
+      if (currentLocation && currentLocation.start) {
+        // 章节开始的位置
+        const startCfi = currentLocation.start.cfi
+        const progress = this.currentBook.locations.percentageFromCfi(startCfi)
+        this.setProgress(Math.floor(progress * 100))
+        this.setSection(currentLocation.start.index)
+
+        //  缓存一下当前阅读进度
+        saveLocation(this.fileName, startCfi)
       }
     }
   }

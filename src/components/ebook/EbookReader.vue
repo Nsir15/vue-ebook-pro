@@ -8,7 +8,7 @@
 
 <script>
 import { ebookMixin } from '../../utils/mixin'
-import { saveFontFamily, getFontFamily, saveFontSize, getFontSize, saveTheme, getTheme } from '../../utils/localStorage'
+import { saveFontFamily, getFontFamily, saveFontSize, getFontSize, saveTheme, getTheme, getLocation } from '../../utils/localStorage'
 import Epub from 'epubjs'
 
 export default {
@@ -81,22 +81,7 @@ export default {
       // 初始化默认主题
       this.rendition.themes.select(defaultTheme)
     },
-    initEpub () {
-      const baseUrl = process.env.VUE_APP_RES_URL + '/epub/'
-      const url = baseUrl + this.fileName + '.epub'
-      this.book = new Epub(url)
-      this.setCurrentBook(this.book)
-      this.rendition = this.book.renderTo('reader', {
-        width: innerWidth,
-        height: innerHeight,
-        method: 'default'
-      })
-      this.rendition.display().then(() => {
-        this.initFontSize()
-        this.initFontFamily()
-        this.initTheme()
-        this.initGlobalStyle()
-      })
+    initGesture () {
       // 添加touch事件
       this.rendition.on('touchstart', event => {
         this.touchStartX = event.changedTouches[0].clientX
@@ -122,7 +107,39 @@ export default {
         // 禁止冒泡
         event.stopPropagation()
       })
+    },
 
+    initEpub () {
+      const baseUrl = process.env.VUE_APP_RES_URL + '/epub/'
+      const url = baseUrl + this.fileName + '.epub'
+      this.book = new Epub(url)
+      this.setCurrentBook(this.book)
+      this.rendition = this.book.renderTo('reader', {
+        width: innerWidth,
+        height: innerHeight,
+        method: 'default'
+      })
+
+      const location = getLocation(this.fileName)
+      if (location) {
+        this.rendition.display(location).then(() => {
+          this.initFontSize()
+          this.initFontFamily()
+          this.initTheme()
+          this.initGlobalStyle()
+          this.updateLocation()
+        })
+      } else {
+        this.rendition.display().then(() => {
+          this.initFontSize()
+          this.initFontFamily()
+          this.initTheme()
+          this.initGlobalStyle()
+          this.updateLocation()
+        })
+      }
+
+      this.initGesture()
       // 阅读器渲染完成，可以获取到资源的时候
       this.rendition.hooks.content.register(contents => {
         Promise.all([
@@ -139,11 +156,8 @@ export default {
       // 通过ebook的钩子函数来生成location
       // book 解析完成时候会回调
       this.book.ready.then(() => {
-      // 获取navigation对象  目录需要使用
-        this.navigation = this.book.navigation
-        return this.book.locations.generate()
+        return this.book.locations.generate(750 * (innerWidth / 375) * (getFontSize(this.fileName) / 16))
       }).then(result => {
-        this.locations = this.book.locations
         this.setBookAvailable(true)
       })
     }

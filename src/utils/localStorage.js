@@ -68,3 +68,12 @@ export function saveTheme (fileName, theme) {
 export function getTheme (fileName) {
   return getBookObj(fileName, 'theme')
 }
+
+// 保存 当前这本书的阅读进度位置
+export function saveLocation (fileName, location) {
+  setBookObj(fileName, 'location', location)
+}
+
+export function getLocation (fileName) {
+  return getBookObj(fileName, 'location')
+}

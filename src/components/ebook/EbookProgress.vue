@@ -31,6 +31,7 @@
 
 <script>
 import { ebookMixin } from '../../utils/mixin'
+
 export default {
   mixins: [ebookMixin],
   components: {},
@@ -61,17 +62,6 @@ export default {
     this.updateProgressBackground()
   },
   methods: {
-    // 刷新进度条位置
-    updateLocation () {
-      const currentLocation = this.currentBook.rendition.currentLocation()
-      if (currentLocation && currentLocation.start) {
-        // 章节开始的位置
-        const startCfi = currentLocation.start.cfi
-        const progress = this.currentBook.locations.percentageFromCfi(startCfi)
-        this.setProgress(Math.floor(progress * 100))
-        this.setSection(currentLocation.start.index)
-      }
-    },
     displaySection () {
       const sectionInfo = this.currentBook.section(this.section)
       if (sectionInfo && sectionInfo.href) {
@@ -100,8 +90,10 @@ export default {
     },
     // 手指停止拖动的时候
     onProgressChange (progress) {
-      const location = this.currentBook.locations.cfiFromPercentage(progress / 100)
-      this.currentBook.rendition.display(location)
+      const location = this.currentBook.locations.cfiFromPercentage(this.progress / 100)
+      this.currentBook.rendition.display(location).then(_ => {
+        this.updateLocation()
+      })
     },
     // 手指拖动的时候
     onProgressInput (progress) {
