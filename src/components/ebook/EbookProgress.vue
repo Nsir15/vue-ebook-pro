@@ -3,6 +3,9 @@
     <div class="setting-wrapper" v-show=" menuAndNavVisible && settingVisible === 2">
       <div class="setting-progress">
           <div class="progress-wrapper">
+            <div class="progress-icon-wrapper" @click="prevSection()">
+              <span class="icon-back"></span>
+            </div>
             <input class="progress"
                     type="range"
                     min="0"
@@ -13,6 +16,9 @@
                     :disabled='!bookAvailable'
                     :value="progress"
                     ref='progress'>
+            <div class="progress-icon-wrapper" @click="nextSection()">
+              <span class="icon-forward"></span>
+            </div>
           </div>
           <div class="progress-title">
             <span>{{this.bookAvailable ? progress + '%' : '加载中...'}}</span>
@@ -44,6 +50,26 @@ export default {
     this.updateProgressBackground()
   },
   methods: {
+    displaySection () {
+      const sectionInfo = this.currentBook.section(this.section)
+      if (sectionInfo && sectionInfo.href) {
+        this.currentBook.rendition.display(sectionInfo.href)
+      }
+    },
+    prevSection () {
+      if (this.section > 0 && this.bookAvailable) {
+        this.setSection(this.section - 1).then(_ => {
+          this.displaySection()
+        })
+      }
+    },
+    nextSection () {
+      if (this.section < this.currentBook.spine.length - 1 && this.bookAvailable) {
+        this.setSection(this.section + 1).then(_ => {
+          this.displaySection()
+        })
+      }
+    },
     updateProgressBackground () {
     // 更新input进度背景样式
       this.$refs.progress.style.backgroundSize = `${this.progress}% 100%`
@@ -83,10 +109,14 @@ export default {
       .progress-wrapper{
         flex: 1;
         @include center;
+        .progress-icon-wrapper{
+          font-size: px2rem(18);
+        }
         .progress{
           width: 100%;
           height: px2rem(2);
           appearance: none;
+          margin: 0 px2rem(10);
           // background: -webkit-linear-gradient(#999,#999) no-repeat,#ddd;
           // background-size: 0 100%;
           &:focus{
