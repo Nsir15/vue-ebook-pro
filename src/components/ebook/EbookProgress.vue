@@ -21,7 +21,8 @@
             </div>
           </div>
           <div class="progress-title">
-            <span>{{this.bookAvailable ? progress + '%' : '加载中...'}}</span>
+            <span class="section-text">{{getSectionTitle}}</span>
+            <span>({{this.bookAvailable ? progress + '%' : '加载中...'}})</span>
           </div>
         </div>
     </div>
@@ -39,7 +40,17 @@ export default {
 
     }
   },
-  computed: {},
+  computed: {
+    getSectionTitle () {
+      if (this.section) {
+        const sectionInfo = this.currentBook.section(this.section)
+        if (sectionInfo && sectionInfo.href) {
+          return this.currentBook.navigation.get(sectionInfo.href).label
+        }
+      }
+      return ''
+    }
+  },
   created () {
 
   },
@@ -149,6 +160,10 @@ export default {
       .progress-title{
         font-size: px2rem(11);
         @include center;
+        padding: 0 px2rem(10);
+        .section-text{
+          @include ellipsis;
+        }
       }
     }
   }

@@ -3,8 +3,14 @@ $fontSize : 375 / 10;
   @return ($px / $fontSize) + rem
 }
 
-@mixin  center{
+@mixin center{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@mixin ellipsis{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
