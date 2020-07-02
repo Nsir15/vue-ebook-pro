@@ -108,37 +108,39 @@ export default {
         event.stopPropagation()
       })
     },
-
-    initEpub () {
-      const baseUrl = process.env.VUE_APP_RES_URL + '/epub/'
-      const url = baseUrl + this.fileName + '.epub'
-      this.book = new Epub(url)
-      this.setCurrentBook(this.book)
+    display (location, callback) {
+      if (location) {
+        this.rendition.display(location).then(_ => {
+          callback && callback()
+        })
+      } else {
+        this.rendition.display().then(_ => {
+          callback && callback()
+        })
+      }
+    },
+    initRendition () {
       this.rendition = this.book.renderTo('reader', {
         width: innerWidth,
         height: innerHeight,
         method: 'default'
       })
+    },
+    initEpub () {
+      const baseUrl = process.env.VUE_APP_RES_URL + '/epub/'
+      const url = baseUrl + this.fileName + '.epub'
+      this.book = new Epub(url)
+      this.setCurrentBook(this.book)
+      this.initRendition()
 
       const location = getLocation(this.fileName)
-      if (location) {
-        this.rendition.display(location).then(() => {
-          this.initFontSize()
-          this.initFontFamily()
-          this.initTheme()
-          this.initGlobalStyle()
-          this.updateLocation()
-        })
-      } else {
-        this.rendition.display().then(() => {
-          this.initFontSize()
-          this.initFontFamily()
-          this.initTheme()
-          this.initGlobalStyle()
-          this.updateLocation()
-        })
-      }
-
+      this.display(location, _ => {
+        this.initFontSize()
+        this.initFontFamily()
+        this.initTheme()
+        this.initGlobalStyle()
+        this.updateLocation()
+      })
       this.initGesture()
       // 阅读器渲染完成，可以获取到资源的时候
       this.rendition.hooks.content.register(contents => {
