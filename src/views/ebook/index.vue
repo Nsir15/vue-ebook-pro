@@ -7,11 +7,13 @@
 </template>
 
 <script>
+import { ebookMixin } from '../../utils/mixin'
 import EbookReader from '../../components/ebook/EbookReader'
 import EbookNav from '../../components/ebook/EbookNav'
 import EbookMenu from '../../components/ebook/EbookMenu'
 
 export default {
+  mixins: [ebookMixin],
   components: {
     EbookReader,
     EbookNav,
@@ -28,10 +30,24 @@ export default {
 
   },
   mounted () {
-
+    this.startLoopReadTime()
+  },
+  beforeDestroy () {
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
   },
   methods: {
-
+    startLoopReadTime () {
+      let readTime = 0
+      this.interval = setInterval(_ => {
+        readTime++
+        // 30 秒加一次时间
+        if (readTime % 30 === 0) {
+          this.setReadTime(Math.ceil(readTime / 60))
+        }
+      }, 1000)
+    }
   }
 }
 </script>

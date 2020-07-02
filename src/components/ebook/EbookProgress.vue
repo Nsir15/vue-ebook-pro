@@ -2,6 +2,9 @@
  <transition name="slide-up">
     <div class="setting-wrapper" v-show=" menuAndNavVisible && settingVisible === 2">
       <div class="setting-progress">
+          <div class="read-time-wrapper">
+            <span class="read-time">{{getReadTime}}</span>
+          </div>
           <div class="progress-wrapper">
             <div class="progress-icon-wrapper" @click="prevSection()">
               <span class="icon-back"></span>
@@ -50,6 +53,10 @@ export default {
         }
       }
       return ''
+    },
+
+    getReadTime () {
+      return this.$t('book.haveRead').replace('$1', this.readTime)
     }
   },
   created () {
@@ -122,8 +129,16 @@ export default {
       display: flex;
       flex-direction: column;
       height: 100%;
-      .progress-wrapper{
+      .read-time-wrapper{
+        font-size: px2rem(14);
         flex: 1;
+        @include center;
+        .read-time{
+          padding: 0 px2rem(10);
+        }
+      }
+      .progress-wrapper{
+        flex: 2;
         @include center;
         .progress-icon-wrapper{
           font-size: px2rem(18);

@@ -31,6 +31,9 @@ const actions = {
   },
   setSection: ({ commit }, section) => {
     return commit('SET_SECTION', section)
+  },
+  setReadTime: ({ commit }, readTime) => {
+    return commit('SET_READ_TIME', readTime)
   }
 }
 

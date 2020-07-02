@@ -10,7 +10,8 @@ const book = {
     currentBook: null,
     bookAvailable: false,
     progress: 0,
-    section: 0
+    section: 0,
+    readTime: 0
   },
   mutations: {
     SET_FILENAME: (state, fileName) => {
@@ -45,6 +46,9 @@ const book = {
     },
     SET_SECTION: (state, section) => {
       state.section = section
+    },
+    SET_READ_TIME: (state, readTime) => {
+      state.readTime = readTime
     }
   }
 }
