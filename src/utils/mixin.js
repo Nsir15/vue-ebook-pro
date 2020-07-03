@@ -16,7 +16,9 @@ export const ebookMixin = {
       'bookAvailable',
       'progress',
       'section',
-      'readTime'
+      'readTime',
+      'cover',
+      'metadata'
     ]),
     themeList () {
       return themeList(this)
@@ -35,7 +37,9 @@ export const ebookMixin = {
       'setBookAvailable',
       'setProgress',
       'setSection',
-      'setReadTime'
+      'setReadTime',
+      'setCover',
+      'setMetadata'
     ]),
 
     initGlobalStyle () {

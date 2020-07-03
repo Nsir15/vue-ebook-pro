@@ -34,6 +34,12 @@ const actions = {
   },
   setReadTime: ({ commit }, readTime) => {
     return commit('SET_READ_TIME', readTime)
+  },
+  setCover: ({ commit }, cover) => {
+    return commit('SET_COVER', cover)
+  },
+  setMetadata: ({ commit }, metadata) => {
+    return commit('SET_METADATA', metadata)
   }
 }
 

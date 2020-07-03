@@ -126,13 +126,24 @@ export default {
         method: 'default'
       })
     },
+    parseBook () {
+      this.book.loaded.cover.then(cover => {
+        this.book.archive.createUrl(cover).then(url => {
+          this.setCover(url)
+        })
+      })
+
+      this.book.loaded.metadata.then(metadata => {
+        this.setMetadata(metadata)
+      })
+    },
     initEpub () {
       const baseUrl = process.env.VUE_APP_RES_URL + '/epub/'
       const url = baseUrl + this.fileName + '.epub'
       this.book = new Epub(url)
       this.setCurrentBook(this.book)
       this.initRendition()
-
+      this.parseBook()
       const location = getLocation(this.fileName)
       this.display(location, _ => {
         this.initFontSize()

@@ -24,6 +24,7 @@
     <ebook-font-family-popup></ebook-font-family-popup>
     <ebook-theme></ebook-theme>
     <ebook-progress></ebook-progress>
+    <ebook-slide></ebook-slide>
   </div>
 </template>
 
@@ -33,6 +34,7 @@ import EbookFontSetting from '../../components/ebook/EbookFontSetting'
 import EbookFontFamilyPopup from '../../components/ebook/EbookFontFamilyPopup'
 import EbookTheme from '../../components/ebook/EbookTheme'
 import EbookProgress from '../../components/ebook/EbookProgress'
+import EbookSlide from '../../components/ebook/EbookSlide'
 
 export default {
   mixins: [ebookMixin],
@@ -40,7 +42,8 @@ export default {
     EbookFontSetting,
     EbookFontFamilyPopup,
     EbookTheme,
-    EbookProgress
+    EbookProgress,
+    EbookSlide
   },
   props: {},
   data () {

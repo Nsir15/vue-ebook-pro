@@ -11,7 +11,9 @@ const book = {
     bookAvailable: false,
     progress: 0,
     section: 0,
-    readTime: 0
+    readTime: 0,
+    cover: null, // 封面图
+    metadata: null // 图书信息
   },
   mutations: {
     SET_FILENAME: (state, fileName) => {
@@ -49,6 +51,12 @@ const book = {
     },
     SET_READ_TIME: (state, readTime) => {
       state.readTime = readTime
+    },
+    SET_COVER: (state, cover) => {
+      state.cover = cover
+    },
+    SET_METADATA: (state, metadata) => {
+      state.metadata = metadata
     }
   }
 }
