@@ -1,6 +1,6 @@
-$fontSize : 375 / 10;
+$ratio : 375 / 10;
 @function px2rem($px){
-  @return ($px / $fontSize) + rem
+  @return ($px / $ratio) + rem
 }
 
 @mixin center{
