@@ -82,10 +82,10 @@ export default {
         height: px2rem(48);
         flex: 0 0 px2rem(48);
         background: orange;
-        @include center;
+        display: flex;
         .content-page-tab-item{
+          @include center;
           flex: 1;
-          text-align: center;
         }
       }
     }
