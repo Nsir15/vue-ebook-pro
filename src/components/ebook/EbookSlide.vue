@@ -81,7 +81,6 @@ export default {
         width: 100%;
         height: px2rem(48);
         flex: 0 0 px2rem(48);
-        background: orange;
         display: flex;
         .content-page-tab-item{
           @include center;

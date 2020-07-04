@@ -13,7 +13,8 @@ const book = {
     section: 0,
     readTime: 0,
     cover: null, // 封面图
-    metadata: null // 图书信息
+    metadata: null, // 图书信息
+    navigation: null // 目录
   },
   mutations: {
     SET_FILENAME: (state, fileName) => {
@@ -57,6 +58,9 @@ const book = {
     },
     SET_METADATA: (state, metadata) => {
       state.metadata = metadata
+    },
+    SET_NAVIGATION: (state, navigation) => {
+      state.navigation = navigation
     }
   }
 }

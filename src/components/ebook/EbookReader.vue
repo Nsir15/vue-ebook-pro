@@ -103,8 +103,8 @@ export default {
         }
 
         //  阻止默认事件
-        event.preventDefault()
-        // 禁止冒泡
+        // event.preventDefault()
+        // // 禁止冒泡
         event.stopPropagation()
       })
     },
@@ -126,6 +126,17 @@ export default {
         method: 'default'
       })
     },
+    // 扁平化一下数组
+    flatten (arr) {
+      let newArr = []
+      arr.forEach(item => {
+        newArr.push(item)
+        if (item.subitems.length) {
+          newArr = newArr.concat(this.flatten(item.subitems))
+        }
+      })
+      return newArr
+    },
     parseBook () {
       this.book.loaded.cover.then(cover => {
         this.book.archive.createUrl(cover).then(url => {
@@ -135,6 +146,22 @@ export default {
 
       this.book.loaded.metadata.then(metadata => {
         this.setMetadata(metadata)
+      })
+
+      this.book.loaded.navigation.then(nav => {
+        // console.log('目录数据', this.flatten(nav.toc))
+        const navItem = this.flatten(nav.toc)
+        // 给每个item添加一个level标识，用来UI渲染的时候进行缩进。
+        function findLevel (item, level = 0) {
+          // 初始值0 如果没有parent，则level为0 代表最外层。
+          // 有parent的话，将level + 1 ,将父item传进去再寻找，如果没有那就是 第二次，如果有，那再 + 1 ，将祖父item传进去找。。。。。依次类推
+          return !item.parent ? level : findLevel(navItem.filter(parentItem => parentItem.id === item.parent)[0], ++level)
+        }
+
+        navItem.forEach(item => {
+          item.level = findLevel(item)
+        })
+        this.setNavigation(navItem)
       })
     },
     initEpub () {

@@ -5,3 +5,8 @@ export function realPx (px) {
   const deviceWidth = window.innerWidth < 500 ? window.innerWidth : 500
   return px * (deviceWidth / 375)
 }
+
+export function px2rem (px) {
+  const ratio = 375 / 10
+  return px / ratio
+}

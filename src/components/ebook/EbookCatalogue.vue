@@ -24,8 +24,13 @@
       </div>
     </div>
     <scroll
+      class="slide-contents-list"
       :top='166'
       :bottom='48'>
+      <div class="slide-contents-item" v-for="(item,index) in navigation" :key="index">
+        <span class="slide-contents-item-label" :class="{'selected': section === index}" :style="catalogueStyle(item)">{{item.label}}</span>
+        <span class="slide-contents-item-page">{{item.page}}</span>
+      </div>
     </scroll>
   </div>
 </template>
@@ -33,6 +38,7 @@
 <script>
 import { ebookMixin } from '../../utils/mixin'
 import Scroll from '../common/Scroll'
+import { px2rem } from '../../utils/util'
 
 export default {
   mixins: [ebookMixin],
@@ -60,6 +66,11 @@ export default {
     },
     showSearchPage () {
       this.searchEnable = true
+    },
+    catalogueStyle (item) {
+      return {
+        marginLeft: `${px2rem(item.level * 15)}rem`
+      }
     }
   }
 }
@@ -149,6 +160,25 @@ export default {
       .slide-contents-book-time{
         flex: 1;
         margin-top: px2rem(5);
+      }
+    }
+  }
+
+  .slide-contents-list{
+    padding: px2rem(15);
+    box-sizing: border-box;
+    .slide-contents-item{
+      font-size: px2rem(14);
+      padding: px2rem(15) 0;
+      box-sizing: border-box;
+      display: flex;
+      .slide-contents-item-label{
+        flex: 1;
+        line-height: px2rem(16);
+        @include ellipsis;
+      }
+      .slide-contents-item-page{
+        flex: 0 0 px2rem(30);
       }
     }
   }
