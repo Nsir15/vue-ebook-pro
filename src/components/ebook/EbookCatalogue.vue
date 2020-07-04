@@ -28,7 +28,7 @@
       :top='166'
       :bottom='48'>
       <div class="slide-contents-item" v-for="(item,index) in navigation" :key="index">
-        <span class="slide-contents-item-label" :class="{'selected': section === index}" :style="catalogueStyle(item)">{{item.label}}</span>
+        <span class="slide-contents-item-label" :class="{'selected': section === index}" :style="catalogueStyle(item)" @click="displayContent(item.href)">{{item.label}}</span>
         <span class="slide-contents-item-page">{{item.page}}</span>
       </div>
     </scroll>
@@ -71,6 +71,12 @@ export default {
       return {
         marginLeft: `${px2rem(item.level * 15)}rem`
       }
+    },
+    displayContent (href) {
+      this.display(href, _ => {
+        this.setSettingVisible(-1)
+        this.setMenuAndNavVisible(false)
+      })
     }
   }
 }

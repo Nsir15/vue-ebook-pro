@@ -64,7 +64,19 @@ export const ebookMixin = {
           break
       }
     },
-
+    display (location, callback) {
+      if (location) {
+        this.currentBook.rendition.display(location).then(_ => {
+          this.updateLocation()
+          callback && callback()
+        })
+      } else {
+        this.currentBook.rendition.display().then(_ => {
+          this.updateLocation()
+          callback && callback()
+        })
+      }
+    },
     // 刷新进度条位置
     updateLocation () {
       const currentLocation = this.currentBook.rendition.currentLocation()

@@ -108,17 +108,7 @@ export default {
         event.stopPropagation()
       })
     },
-    display (location, callback) {
-      if (location) {
-        this.rendition.display(location).then(_ => {
-          callback && callback()
-        })
-      } else {
-        this.rendition.display().then(_ => {
-          callback && callback()
-        })
-      }
-    },
+
     initRendition () {
       this.rendition = this.book.renderTo('reader', {
         width: innerWidth,
@@ -177,7 +167,6 @@ export default {
         this.initFontFamily()
         this.initTheme()
         this.initGlobalStyle()
-        this.updateLocation()
       })
       this.initGesture()
       // 阅读器渲染完成，可以获取到资源的时候
