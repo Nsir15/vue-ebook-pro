@@ -23,15 +23,22 @@
         <div class="slide-contents-book-time">{{getReadTime}}</div>
       </div>
     </div>
+    <scroll
+      :top='126'
+      :bottom='48'>
+    </scroll>
   </div>
 </template>
 
 <script>
 import { ebookMixin } from '../../utils/mixin'
+import Scroll from '../common/Scroll'
 
 export default {
   mixins: [ebookMixin],
-  components: {},
+  components: {
+    Scroll
+  },
   props: {},
   data () {
     return {
