@@ -37,7 +37,7 @@
       :top='76'
       :bottom='48'
       v-show="searchPageVisible">
-      <div class="slide-search-item" v-for="(item,index) in searchList" :key="index" v-html="item.excerpt" @click="displayContent(item.cfi)">
+      <div class="slide-search-item" v-for="(item,index) in searchList" :key="index" v-html="item.excerpt" @click="displayContent(item.cfi,true)">
       </div>
     </scroll>
   </div>
@@ -82,10 +82,14 @@ export default {
         marginLeft: `${px2rem(item.level * 15)}rem`
       }
     },
-    displayContent (href) {
+    displayContent (href, highlight = false) {
       this.display(href, _ => {
         this.setSettingVisible(-1)
         this.setMenuAndNavVisible(false)
+        // 搜索关键字高亮显示
+        if (highlight) {
+          this.currentBook.rendition.annotations.highlight(href)
+        }
       })
     },
     doSearch (q) {
