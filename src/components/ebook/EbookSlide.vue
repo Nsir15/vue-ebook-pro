@@ -8,8 +8,8 @@
           <component :is="currentTab === 1 ? catalogue : bookmark"></component>
         </div>
         <div class="content-page-tab">
-          <div class="content-page-tab-item">{{$t('book.navigation')}}</div>
-          <div class="content-page-tab-item">{{$t('book.bookmark')}}</div>
+          <div class="content-page-tab-item" :class="{'selected':currentTab === 1}" @click="selectTab(1)">{{$t('book.navigation')}}</div>
+          <div class="content-page-tab-item" :class="{'selected':currentTab === 2}" @click="selectTab(2)">{{$t('book.bookmark')}}</div>
         </div>
       </div>
     </div>
@@ -47,6 +47,9 @@ export default {
       if ([].indexOf.call(target.classList, 'slide-content-wrapper') > -1) {
         this.setSettingVisible(-1)
       }
+    },
+    selectTab (index) {
+      this.currentTab = index
     }
   }
 }
