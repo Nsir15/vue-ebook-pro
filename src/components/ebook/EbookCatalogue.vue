@@ -3,9 +3,9 @@
     <div class="slide-contents-search-wrapper">
       <div class="slide-contents-search-input-wrapper">
         <span class="icon-search"></span>
-        <input type="text" class="slide-contents-search-input" @click="showSearchPage" :placeholder="$t('book.searchHint')">
+        <input type="text" v-model="searchText" class="slide-contents-search-input" @click="showSearchPage" :placeholder="$t('book.searchHint')" @keyup.enter="handleSearch">
       </div>
-      <div v-if="searchEnable" class="slide-contents-search-cancel" @click="handleCancel">{{$t('book.cancel')}}</div>
+      <div v-if="searchPageVisible" class="slide-contents-search-cancel" @click="handleCancel">{{$t('book.cancel')}}</div>
     </div>
     <div class="slide-contents-book-wrapper" v-show="!searchPageVisible">
       <div class="slide-contents-book-img-wrapper">
@@ -26,10 +26,18 @@
     <scroll
       class="slide-contents-list"
       :top='166'
-      :bottom='48'>
+      :bottom='48'
+      v-show="!searchPageVisible">
       <div class="slide-contents-item" v-for="(item,index) in navigation" :key="index">
         <span class="slide-contents-item-label" :class="{'selected': section === index}" :style="catalogueStyle(item)" @click="displayContent(item.href)">{{item.label}}</span>
         <span class="slide-contents-item-page">{{item.page}}</span>
+      </div>
+    </scroll>
+    <scroll class="slide-search-list"
+      :top='76'
+      :bottom='48'
+      v-show="searchPageVisible">
+      <div class="slide-search-item" v-for="(item,index) in searchList" :key="index" v-html="item.excerpt" @click="displayContent(item.cfi)">
       </div>
     </scroll>
   </div>
@@ -49,7 +57,9 @@ export default {
   data () {
     return {
       searchEnable: false,
-      searchPageVisible: false
+      searchPageVisible: false,
+      searchText: '',
+      searchList: []
     }
   },
   computed: {
@@ -62,10 +72,10 @@ export default {
   },
   methods: {
     handleCancel () {
-      this.searchEnable = false
+      this.searchPageVisible = false
     },
     showSearchPage () {
-      this.searchEnable = true
+      this.searchPageVisible = true
     },
     catalogueStyle (item) {
       return {
@@ -76,6 +86,26 @@ export default {
       this.display(href, _ => {
         this.setSettingVisible(-1)
         this.setMenuAndNavVisible(false)
+      })
+    },
+    doSearch (q) {
+      return Promise.all(
+        this.currentBook.spine.spineItems.map(item => item.load(this.currentBook.load.bind(this.currentBook))
+          .then(item.find.bind(item, q))
+          .finally(item.unload.bind(item)))
+      ).then(results => Promise.resolve([].concat.apply([], results)))
+    },
+    handleSearch () {
+      if (!this.searchText) return
+      const that = this
+      this.doSearch(this.searchText).then(res => {
+        console.log('searchList', res)
+        that.searchList = res
+
+        // 搜索关键词高亮显示
+        that.searchList.forEach(item => {
+          item.excerpt = item.excerpt.replace(that.searchText, `<span class="content-search-text">${that.searchText}</span>`)
+        })
       })
     }
   }
@@ -186,6 +216,16 @@ export default {
       .slide-contents-item-page{
         flex: 0 0 px2rem(30);
       }
+    }
+  }
+
+  .slide-search-list{
+    padding: px2rem(15);
+    box-sizing: border-box;
+    .slide-search-item{
+      font-size: px2rem(14);
+      padding: px2rem(15) 0;
+      box-sizing: border-box;
     }
   }
 }

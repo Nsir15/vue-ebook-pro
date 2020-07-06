@@ -40,3 +40,7 @@ gitee 访问仓库 502 ，所以这里把gitee 的代码迁移到了GitHub上。
 
 
 [Rem布局的原理解析](https://yanhaijing.com/css/2017/09/29/principle-of-rem-layout/)
+
+
+
+## epubjs搜索的算法  https://github.com/futurepress/epub.js/wiki/Tips-and-Tricks-%28v0.3%29
