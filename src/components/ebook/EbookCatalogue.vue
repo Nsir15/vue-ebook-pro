@@ -3,7 +3,7 @@
     <div class="slide-contents-search-wrapper">
       <div class="slide-contents-search-input-wrapper">
         <span class="icon-search"></span>
-        <input type="text" v-model="searchText" class="slide-contents-search-input" @click="showSearchPage" :placeholder="$t('book.searchHint')" @keyup.enter="handleSearch">
+        <input type="text" v-model="searchText" class="slide-contents-search-input" @click="showSearchPage" :placeholder="$t('book.searchHint')" @keyup.enter.exact="handleSearch">
       </div>
       <div v-if="searchPageVisible" class="slide-contents-search-cancel" @click="handleCancel">{{$t('book.cancel')}}</div>
     </div>
@@ -72,6 +72,8 @@ export default {
   },
   methods: {
     handleCancel () {
+      this.searchList = []
+      this.searchText = ''
       this.searchPageVisible = false
     },
     showSearchPage () {
