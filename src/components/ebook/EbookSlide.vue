@@ -3,7 +3,7 @@
  <div class="slide-content-wrapper" v-show="settingVisible === 3" @click="hideSlide">
    <transition name="slide-right">
     <div class="content" v-show="settingVisible === 3">
-      <div class="content-page-wrapper">
+      <div class="content-page-wrapper" v-if="bookAvailable">
         <div class="content-page">
           <component :is="currentTab === 1 ? catalogue : bookmark"></component>
         </div>
@@ -11,6 +11,9 @@
           <div class="content-page-tab-item" :class="{'selected':currentTab === 1}" @click="selectTab(1)">{{$t('book.navigation')}}</div>
           <div class="content-page-tab-item" :class="{'selected':currentTab === 2}" @click="selectTab(2)">{{$t('book.bookmark')}}</div>
         </div>
+      </div>
+      <div class="content-empty" v-else>
+        <ebook-loading></ebook-loading>
       </div>
     </div>
    </transition>
@@ -22,9 +25,11 @@
 import { ebookMixin } from '../../utils/mixin'
 import EbookCatalogue from './EbookCatalogue'
 import EbookBookmark from './EbookBookmark'
+import EbookLoading from './EbookLoading'
 export default {
   mixins: [ebookMixin],
   components: {
+    EbookLoading
   },
   props: {},
   data () {
@@ -90,6 +95,12 @@ export default {
           flex: 1;
         }
       }
+    }
+
+    .content-empty{
+      width: 100%;
+      height: 100%;
+      @include center;
     }
   }
 
