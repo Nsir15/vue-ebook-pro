@@ -23,8 +23,8 @@
 
 <script>
 import { ebookMixin } from '../../utils/mixin'
-import EbookCatalogue from './EbookCatalogue'
-import EbookBookmark from './EbookBookmark'
+import EbookCatalogue from './EbookSlideCatalogue'
+import EbookBookmark from './EbookSlideBookmark'
 import EbookLoading from './EbookLoading'
 export default {
   mixins: [ebookMixin],
