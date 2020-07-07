@@ -1,8 +1,9 @@
 <template>
- <div id="epub-reader">
-   <div id="reader">
-
-   </div>
+ <div id="ebook-reader">
+   <div id="reader"></div>
+   <div class="ebook-reader-mask"
+    @click="maskClick"
+    @touchmove="move"></div>
  </div>
 </template>
 
@@ -31,15 +32,39 @@ export default {
     })
   },
   methods: {
+    maskClick (e) {
+      console.log(e)
+      const offsetX = e.offsetX
+      const width = window.innerWidth
+      if (offsetX < width * 0.3) {
+        this.prevPage()
+      } else if (offsetX > width * 0.7) {
+        this.nextPage()
+      } else {
+        this.showNavAndMenu()
+      }
+    },
+    move (e) {
+
+    },
     prevPage () {
       if (this.rendition) {
-        this.rendition.prev()
+        this.hideNavAndMenu()
+        this.rendition.prev().then(_ => {
+          this.updateLocation()
+        })
       }
     },
     nextPage () {
       if (this.rendition) {
-        this.rendition.next()
+        this.hideNavAndMenu()
+        this.rendition.next().then(_ => {
+          this.updateLocation()
+        })
       }
+    },
+    hideNavAndMenu () {
+      this.setMenuAndNavVisible(false)
     },
     showNavAndMenu () {
       // this.$store.dispatch('setMenuAndNavVisible', !this.menuAndNavVisible)
@@ -82,6 +107,7 @@ export default {
       this.rendition.themes.select(defaultTheme)
     },
     initGesture () {
+      // rendition 上面没有touchmove事件，所以需要自定义一个蒙层来实现各种手势事件
       // 添加touch事件
       this.rendition.on('touchstart', event => {
         this.touchStartX = event.changedTouches[0].clientX
@@ -168,7 +194,8 @@ export default {
         this.initTheme()
         this.initGlobalStyle()
       })
-      this.initGesture()
+
+      // this.initGesture()
       // 阅读器渲染完成，可以获取到资源的时候
       this.rendition.hooks.content.register(contents => {
         Promise.all([
@@ -195,5 +222,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+#ebook-reader{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .ebook-reader-mask{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 105;
+    background: transparent;
+  }
+}
 </style>
