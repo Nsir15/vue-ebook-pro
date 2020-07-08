@@ -2,7 +2,7 @@
  * @Description: 书签组件的容器
  * @Author: MRNAN
  * @Date: 2020-07-08 10:21:46
- * @LastEditTime: 2020-07-08 17:20:25
+ * @LastEditTime: 2020-07-08 17:47:36
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/ebook/EbookBookmark.vue
 -->
@@ -14,7 +14,7 @@
      </div>
      <div class="ebook-bookmark-text">{{text}}</div>
    </div>
-   <div class="ebook-bookmark-icon-wrapper">
+   <div class="ebook-bookmark-icon-wrapper" :style="isFixed ? fixedStyle : {}">
      <bookmark :width="20" :height="40" :color="color"></bookmark>
    </div>
  </div>
@@ -36,7 +36,8 @@ export default {
   data () {
     return {
       text: '',
-      color: WHITE
+      color: WHITE,
+      isFixed: false
     }
   },
   computed: {
@@ -45,6 +46,13 @@ export default {
     },
     threshold () {
       return realPx(55)
+    },
+    fixedStyle () {
+      return {
+        position: 'fixed',
+        top: 0,
+        right: '0px'
+      }
     }
   },
   watch: {
@@ -58,31 +66,11 @@ export default {
       if (value > 0 && value < this.height) {
         this.beforeHeight()
       } else if (value >= this.height && value < this.threshold) {
-        this.$refs.bookmark.style.top = `${-value}px`
-        this.beforeHeight()
-        const iconDown = this.$refs.iconDown
-        if (iconDown.style.transform === 'rotate(180deg)') {
-          iconDown.style.transform = 'rotate(0deg)'
-        }
+        this.beforeThreshold(value)
       } else if (value >= this.threshold) {
-        this.$refs.bookmark.style.top = `${-value}px`
-        if (this.isBookmark) {
-          this.text = this.$t('book.releaseDeleteMark')
-          this.color = WHITE
-        } else {
-          this.text = this.$t('book.releaseAddMark')
-          this.color = BLUE
-        }
-
-        const iconDown = this.$refs.iconDown
-        if (iconDown.style.transform === '' || iconDown.style.transform === 'rotate(0deg)') {
-          iconDown.style.transform = 'rotate(180deg)'
-        }
+        this.afterThreshold(value)
       } else if (value === 0) { // 归位
-        setTimeout(() => {
-          this.$refs.iconDown.style.transform = 'rotate(0deg)'
-          this.$refs.bookmark.style.top = `${-this.height}px`
-        }, 200)
+        this.restore()
       }
     }
   },
@@ -97,9 +85,49 @@ export default {
       if (this.isBookmark) {
         this.text = this.$t('book.pulldownDeleteMark')
         this.color = BLUE
+        this.isFixed = true
       } else {
         this.text = this.$t('book.pulldownAddMark')
         this.color = WHITE
+        this.isFixed = false
+      }
+    },
+    beforeThreshold (value) {
+      this.$refs.bookmark.style.top = `${-value}px`
+      this.beforeHeight()
+      const iconDown = this.$refs.iconDown
+      if (iconDown.style.transform === 'rotate(180deg)') {
+        iconDown.style.transform = 'rotate(0deg)'
+      }
+    },
+    afterThreshold (value) {
+      this.$refs.bookmark.style.top = `${-value}px`
+      if (this.isBookmark) {
+        this.text = this.$t('book.releaseDeleteMark')
+        this.color = WHITE
+        this.isFixed = false
+      } else {
+        this.text = this.$t('book.releaseAddMark')
+        this.color = BLUE
+        this.isFixed = true
+      }
+
+      const iconDown = this.$refs.iconDown
+      if (iconDown.style.transform === '' || iconDown.style.transform === 'rotate(0deg)') {
+        iconDown.style.transform = 'rotate(180deg)'
+      }
+    },
+    restore () {
+      setTimeout(() => {
+        this.$refs.iconDown.style.transform = 'rotate(0deg)'
+        this.$refs.bookmark.style.top = `${-this.height}px`
+      }, 200)
+
+      // 最后保存一下最终状态
+      if (this.isFixed) {
+        this.setIsBookmark(true)
+      } else {
+        this.setIsBookmark(false)
       }
     }
   }
