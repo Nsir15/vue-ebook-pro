@@ -54,10 +54,12 @@ export default {
       } else {
         this.firstOffsetY = e.changedTouches[0].clientY
       }
+      e.preventDefault()
+      e.stopPropagation()
     },
     touchEnd (e) {
       console.log(this.offsetY)
-
+      this.firstOffsetY = 0
       this.setOffsetY(0)
     },
     prevPage () {

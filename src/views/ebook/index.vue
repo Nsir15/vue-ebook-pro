@@ -3,6 +3,7 @@
    <ebook-nav></ebook-nav>
    <ebook-reader></ebook-reader>
    <ebook-menu></ebook-menu>
+  <ebook-bookmark></ebook-bookmark>
  </div>
 </template>
 
@@ -12,13 +13,15 @@ import { px2rem } from '../../utils/util'
 import EbookReader from '../../components/ebook/EbookReader'
 import EbookNav from '../../components/ebook/EbookNav'
 import EbookMenu from '../../components/ebook/EbookMenu'
+import EbookBookmark from '../../components/ebook/EbookBookmark'
 
 export default {
   mixins: [ebookMixin],
   components: {
     EbookReader,
     EbookNav,
-    EbookMenu
+    EbookMenu,
+    EbookBookmark
   },
   props: {},
   data () {
