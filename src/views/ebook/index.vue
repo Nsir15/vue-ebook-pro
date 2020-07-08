@@ -1,8 +1,8 @@
 <template>
  <div class="ebook" ref="ebook">
-   <ebook-nav></ebook-nav>
-   <ebook-reader></ebook-reader>
-   <ebook-menu></ebook-menu>
+  <ebook-nav></ebook-nav>
+  <ebook-reader></ebook-reader>
+  <ebook-menu></ebook-menu>
   <ebook-bookmark></ebook-bookmark>
  </div>
 </template>

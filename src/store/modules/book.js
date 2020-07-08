@@ -15,7 +15,8 @@ const book = {
     cover: null, // 封面图
     metadata: null, // 图书信息
     navigation: null, // 目录
-    offsetY: 0 // 下滑添加书签用的拖动下滑的距离
+    offsetY: 0, // 下滑添加书签用的拖动下滑的距离
+    isBookmark: false // 是否已经是书签
   },
   mutations: {
     SET_FILENAME: (state, fileName) => {
@@ -65,6 +66,9 @@ const book = {
     },
     SET_OFFSETY: (state, offsetY) => {
       state.offsetY = offsetY
+    },
+    SET_IS_BOOKMARK: (state, isBookmark) => {
+      state.isBookmark = isBookmark
     }
   }
 }

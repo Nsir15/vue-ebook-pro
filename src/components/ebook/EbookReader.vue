@@ -58,7 +58,6 @@ export default {
       e.stopPropagation()
     },
     touchEnd (e) {
-      console.log(this.offsetY)
       this.firstOffsetY = 0
       this.setOffsetY(0)
     },

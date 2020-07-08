@@ -46,6 +46,9 @@ const actions = {
   },
   setOffsetY: ({ commit }, offsetY) => {
     return commit('SET_OFFSETY', offsetY)
+  },
+  setIsBookmark: ({ commit }, isBookmark) => {
+    return commit('SET_IS_BOOKMARK', isBookmark)
   }
 }
 
