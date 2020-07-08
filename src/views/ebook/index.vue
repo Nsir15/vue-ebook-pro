@@ -1,5 +1,5 @@
 <template>
- <div id="ebook">
+ <div class="ebook" ref="ebook">
    <ebook-nav></ebook-nav>
    <ebook-reader></ebook-reader>
    <ebook-menu></ebook-menu>
@@ -8,6 +8,7 @@
 
 <script>
 import { ebookMixin } from '../../utils/mixin'
+import { px2rem } from '../../utils/util'
 import EbookReader from '../../components/ebook/EbookReader'
 import EbookNav from '../../components/ebook/EbookNav'
 import EbookMenu from '../../components/ebook/EbookMenu'
@@ -26,6 +27,24 @@ export default {
     }
   },
   computed: {},
+  watch: {
+    offsetY (value) {
+      if (this.menuAndNavVisible || !this.bookAvailable) {
+        return null
+      }
+
+      if (value > 0) {
+        this.$refs.ebook.style.top = `${px2rem(this.offsetY)}rem`
+      } else if (value === 0) {
+        this.$refs.ebook.style.top = 0
+        this.$refs.ebook.style.transition = 'all .2s linear'
+        // 结束之后清除transition ,防止对下拉动作产生影响
+        setTimeout(() => {
+          this.$refs.ebook.style.transition = ''
+        }, 200)
+      }
+    }
+  },
   created () {
 
   },
@@ -53,5 +72,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.ebook{
+  position:absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
 </style>

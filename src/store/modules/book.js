@@ -14,7 +14,8 @@ const book = {
     readTime: 0,
     cover: null, // 封面图
     metadata: null, // 图书信息
-    navigation: null // 目录
+    navigation: null, // 目录
+    offsetY: 0 // 下滑添加书签用的拖动下滑的距离
   },
   mutations: {
     SET_FILENAME: (state, fileName) => {
@@ -61,6 +62,9 @@ const book = {
     },
     SET_NAVIGATION: (state, navigation) => {
       state.navigation = navigation
+    },
+    SET_OFFSETY: (state, offsetY) => {
+      state.offsetY = offsetY
     }
   }
 }

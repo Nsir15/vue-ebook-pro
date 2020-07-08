@@ -3,7 +3,8 @@
    <div id="reader"></div>
    <div class="ebook-reader-mask"
     @click="maskClick"
-    @touchmove="move"></div>
+    @touchmove="move"
+    @touchend="touchEnd"></div>
  </div>
 </template>
 
@@ -45,7 +46,19 @@ export default {
       }
     },
     move (e) {
+      let offsetY = 0
+      if (this.firstOffsetY) {
+        offsetY = e.changedTouches[0].clientY - this.firstOffsetY
+        offsetY = offsetY < 0 ? 0 : offsetY
+        this.setOffsetY(offsetY)
+      } else {
+        this.firstOffsetY = e.changedTouches[0].clientY
+      }
+    },
+    touchEnd (e) {
+      console.log(this.offsetY)
 
+      this.setOffsetY(0)
     },
     prevPage () {
       if (this.rendition) {

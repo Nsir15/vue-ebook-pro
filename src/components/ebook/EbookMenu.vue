@@ -82,7 +82,6 @@ export default {
     .icon-wrapper {
       @include center;
       flex: 1;
-
       .icon-progress {
         font-size: px2rem(28);
       }

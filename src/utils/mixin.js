@@ -19,7 +19,8 @@ export const ebookMixin = {
       'readTime',
       'cover',
       'metadata',
-      'navigation'
+      'navigation',
+      'offsetY'
     ]),
     themeList () {
       return themeList(this)
@@ -41,7 +42,8 @@ export const ebookMixin = {
       'setReadTime',
       'setCover',
       'setMetadata',
-      'setNavigation'
+      'setNavigation',
+      'setOffsetY'
     ]),
 
     initGlobalStyle () {
