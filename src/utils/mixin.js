@@ -84,6 +84,7 @@ export const ebookMixin = {
     // 刷新进度条位置
     updateLocation () {
       const currentLocation = this.currentBook.rendition.currentLocation()
+      console.log(currentLocation)
       if (currentLocation && currentLocation.start) {
         // 章节开始的位置
         const startCfi = currentLocation.start.cfi

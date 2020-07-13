@@ -2,7 +2,7 @@
  * @Description: 书签组件的容器
  * @Author: MRNAN
  * @Date: 2020-07-08 10:21:46
- * @LastEditTime: 2020-07-08 17:47:36
+ * @LastEditTime: 2020-07-13 22:22:27
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/ebook/EbookBookmark.vue
 -->
@@ -24,6 +24,7 @@
 import Bookmark from '../common/Bookmark'
 import { realPx } from '../../utils/util'
 import { ebookMixin } from '../../utils/mixin'
+import { saveBookmark, getBookmark } from '../../utils/localStorage'
 const BLUE = '#346CBC'
 const WHITE = '#fff'
 
@@ -81,6 +82,40 @@ export default {
 
   },
   methods: {
+    addBookmark () {
+      this.bookmark = getBookmark(this.fileName)
+      if (!this.bookmark) {
+        this.bookmark = []
+      }
+      const currentLocation = this.currentBook.rendition.currentLocation()
+      // "epubcfi(/6/10[A978-1-4302-5927-5_2_Chapter]!/4/10/2/1:356)"
+      //  获取前面的文件名部分   epubcfi(/6/10[A978-1-4302-5927-5_2_Chapter]
+      const cfibase = currentLocation.start.cfi.replace(/!.*/, '')
+      // 获取开始位置  /4/10/2/1:356)
+      const cfistart = currentLocation.start.cfi.replace(/.*!/, '').replace(/\)$/, '')
+      // 获取结束位置
+      const cfiend = currentLocation.end.cfi.replace(/.*!/, '')
+      // 拼接 range
+      const cfirange = `${cfibase}!,${cfistart},${cfiend}`
+      this.currentBook.getRange(cfirange).then(range => {
+        // console.log('range===:', range.toString())
+        const text = range.toString()
+        this.bookmark.push({
+          cfi: currentLocation.start.cfi,
+          text
+        })
+        saveBookmark(this.fileName, this.bookmark)
+      })
+    },
+    removeBookmark () {
+      const currentLocation = this.currentBook.rendition.currentLocation()
+      const cfi = currentLocation.start.cfi
+      this.bookmark = getBookmark(this.fileName)
+      if (this.bookmark) {
+        this.bookmark.filter(item => item.cfi === cfi)
+        this.setIsBookmark(false)
+      }
+    },
     beforeHeight () {
       if (this.isBookmark) {
         this.text = this.$t('book.pulldownDeleteMark')
@@ -126,8 +161,10 @@ export default {
       // 最后保存一下最终状态
       if (this.isFixed) {
         this.setIsBookmark(true)
+        this.addBookmark()
       } else {
         this.setIsBookmark(false)
+        this.removeBookmark()
       }
     }
   }

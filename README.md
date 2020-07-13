@@ -35,6 +35,7 @@ VUE_APP_RES_URL = http://192.168.1.3:9001
 VUE_APP_RES_URL = http://192.168.3.10:9001    
 
 
+作者的文章：[如何开发高质量的Web阅读产品](https://juejin.im/post/5bc83bbae51d450e551a722d)
 
 gitee 访问仓库 502 ，所以这里把gitee 的代码迁移到了GitHub上。[是时候把gitee仓库迁移回github了](https://blog.csdn.net/qq598535550/article/details/87870931)
 

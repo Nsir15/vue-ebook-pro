@@ -19,7 +19,7 @@
                     :disabled='!bookAvailable'
                     :value="progress"
                     ref='progress'>
-            <div class="progress-icon-wrapper" @click="nextSection()">
+            <div class="progress-icon-wrapper" @click="nextSection">
               <span class="icon-forward"></span>
             </div>
           </div>
