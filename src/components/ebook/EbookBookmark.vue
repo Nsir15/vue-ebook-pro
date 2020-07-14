@@ -2,7 +2,7 @@
  * @Description: 书签组件的容器
  * @Author: MRNAN
  * @Date: 2020-07-08 10:21:46
- * @LastEditTime: 2020-07-13 22:22:27
+ * @LastEditTime: 2020-07-14 21:23:21
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/ebook/EbookBookmark.vue
 -->
@@ -72,6 +72,14 @@ export default {
         this.afterThreshold(value)
       } else if (value === 0) { // 归位
         this.restore()
+      }
+    },
+    isBookmark (isBookmark) {
+      this.isFixed = isBookmark
+      if (isBookmark) {
+        this.color = BLUE
+      } else {
+        this.color = WHITE
       }
     }
   },
