@@ -2,19 +2,20 @@
  * @Description:
  * @Author: MRNAN
  * @Date: 2020-07-16 20:45:20
- * @LastEditTime: 2020-07-16 20:49:19
+ * @LastEditTime: 2020-07-16 20:56:56
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/views/store/StoreHome.vue
 -->
 <template>
  <div class="store-home">
-home
+   <search-bar></search-bar>
  </div>
 </template>
 
 <script>
+import SearchBar from '../../components/store/SearchBar'
 export default {
-  components: {},
+  components: { SearchBar },
   props: {},
   data () {
     return {
