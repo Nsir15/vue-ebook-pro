@@ -33,7 +33,9 @@ export default {
   },
   methods: {
     handleScroll (e) {
-      console.log(e)
+      // 获取滚动条滚动的高度
+      const offsetY = e.target.scrollTop || window.pageYOffset || document.body.scrollTop
+      this.$emit('onScroll', offsetY)
     },
 
     init () {

@@ -2,7 +2,7 @@
  * @Description:
  * @Author: MRNAN
  * @Date: 2020-07-16 20:51:21
- * @LastEditTime: 2020-07-16 21:43:01
+ * @LastEditTime: 2020-07-18 14:47:58
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/SearchBar.vue
 -->
@@ -54,8 +54,9 @@ export default {
 @import '../../assets/styles/global';
 .search-bar{
   position: relative;
+  height: px2rem(96);
   .search-bar-title-wrapper{
-    position: absolute;
+    position: relative;
     left: 0;
     top: 0;
     width: 100%;
@@ -83,9 +84,9 @@ export default {
   }
   .search-bar-input-wrapper{
     width: 100%;
-    position: absolute;
-    left: 0;
-    top: px2rem(52);
+    // position: absolute;
+    // left: 0;
+    // top: px2rem(52);
     padding: px2rem(10);
     box-sizing: border-box;
     .search-bar-input{

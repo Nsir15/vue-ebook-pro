@@ -109,3 +109,17 @@ export const ebookMixin = {
     }
   }
 }
+
+//  书城首页的mixin
+export const storeHomeMixin = {
+  computed: {
+    ...mapGetters([
+      'offsetY'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'setOffsetY'
+    ])
+  }
+}
