@@ -2,7 +2,7 @@
  * @Description:
  * @Author: MRNAN
  * @Date: 2020-07-16 20:51:21
- * @LastEditTime: 2020-07-18 17:22:04
+ * @LastEditTime: 2020-07-18 17:26:31
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/SearchBar.vue
 -->
@@ -69,7 +69,7 @@ export default {
     height: px2rem(52);
   }
   .search-bar-title-wrapper {
-    position: relative;
+    position: absolute;
     left: 0;
     top: 0;
     width: 100%;
