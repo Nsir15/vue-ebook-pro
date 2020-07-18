@@ -2,7 +2,7 @@
  * @Description:
  * @Author: MRNAN
  * @Date: 2020-07-16 20:51:21
- * @LastEditTime: 2020-07-18 16:19:14
+ * @LastEditTime: 2020-07-18 17:22:04
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/SearchBar.vue
 -->
@@ -10,9 +10,6 @@
   <div class="search-bar" :class="{'title-hidden' : !titleVisible }">
     <transition name="title-fade">
       <div class="search-bar-title-wrapper" v-show="titleVisible">
-        <div class="title-icon-back-wrapper">
-          <span class="icon-back"></span>
-        </div>
         <div class="title-text-wrapper">
           <span class="title-text-title">{{$t('home.title')}}</span>
         </div>
@@ -21,7 +18,10 @@
         </div>
       </div>
     </transition>
-    <div class="search-bar-input-wrapper">
+    <div class="title-icon-back-wrapper">
+      <span class="icon-back"></span>
+    </div>
+    <div class="search-bar-input-wrapper" :class="{'title-hidden':!titleVisible}">
       <div class="search-bar-input">
         <span class="icon-search"></span>
         <input type="text" :placeholder="$t('home.hint')" />
@@ -63,6 +63,8 @@ export default {
 .search-bar {
   position: relative;
   height: px2rem(96);
+  font-size: px2rem(14);
+  z-index: 120;
   &.title-hidden {
     height: px2rem(52);
   }
@@ -73,13 +75,6 @@ export default {
     width: 100%;
     height: px2rem(42);
     font-size: px2rem(14);
-    .title-icon-back-wrapper {
-      position: absolute;
-      left: px2rem(17);
-      top: 0;
-      height: 100%;
-      @include center;
-    }
     .title-text-wrapper {
       line-height: px2rem(42);
       width: 100%;
@@ -93,13 +88,25 @@ export default {
       @include center;
     }
   }
+  .title-icon-back-wrapper {
+    position: absolute;
+    left: px2rem(17);
+    top: 0;
+    height: px2rem(42);
+    @include center;
+  }
   .search-bar-input-wrapper {
     width: 100%;
-    // position: absolute;
-    // left: 0;
-    // top: px2rem(52);
+    position: absolute;
+    left: 0;
+    top: px2rem(42);
+    background: white;
     padding: px2rem(10);
     box-sizing: border-box;
+    transition: top .2s linear;
+    &.title-hidden{
+      top: 0;
+    }
     .search-bar-input {
       background: #f4f4f4;
       border-radius: px2rem(20);
