@@ -9,7 +9,8 @@
 .slide-down-enter-active,.slide-down-leave-active,.slide-up-enter-active,.slide-up-leave-active,
 .slide-right-enter-active,.slide-right-leave-active,
 .popup-slide-up-enter-active,.popup-slide-up-leave-active,
-.fade-enter-active,.fade-leave-active
+.fade-enter-active,.fade-leave-active,
+.title-fade-enter-active,.title-fade-leave-active
 {
   transition:all  .2s linear;
 }
@@ -39,3 +40,36 @@
   transform: translate3d(0,0,0);
 }
 
+
+// .store-title-fade-enter,.store-title-fade-leave-to{
+//   opacity: 0;
+//   transform: translate3d(0,px2rem(10),0);
+// }
+// .store-title-fade-enter-to,.store-title-fade-leave{
+//   opacity: 1;
+//   transform: translate3d(0,0,0);
+// }
+
+// 上面连写自己没有理解透，所以拆开做个注释
+
+// 删除元素的时候生效 也就是show 为false的时候 ，元素隐藏的时候调用的动画效果
+.title-fade-leave{
+  opacity: 1;
+  transform: translate3d(0,px2rem(0),0);
+}
+.title-fade-leave-to{
+  opacity: 0;
+  transform: translate3d(0,px2rem(10),0);
+}
+
+// 插入元素的时候生效 也就是show为true的时候 元素要显示的时候调用的动画
+// vue 文档所说，enter 是元素被插入前生效，也就是说enter 是动画前的初始状态
+// enter-to 是元素插入后就开始执行，就是想要的动画效果
+.title-fade-enter{
+  opacity: 0;
+  transform: translate3d(0,px2rem(10),0);
+}
+.title-fade-enter-to{
+  opacity: 1;
+  transform: translate3d(0,px2rem(0),0);
+}
