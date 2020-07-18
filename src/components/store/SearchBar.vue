@@ -2,11 +2,12 @@
  * @Description:
  * @Author: MRNAN
  * @Date: 2020-07-16 20:51:21
- * @LastEditTime: 2020-07-18 18:01:01
+ * @LastEditTime: 2020-07-18 18:30:05
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/SearchBar.vue
 -->
 <template>
+<div>
   <div class="search-bar" :class="{'title-hidden' : !titleVisible,'hide-shadow':!shadowVisible }">
     <transition name="title-fade">
       <div class="search-bar-title-wrapper" v-show="titleVisible">
@@ -30,13 +31,18 @@
       </div>
     </div>
   </div>
+  <hot-search-list></hot-search-list>
+</div>
 </template>
 
 <script>
 import { storeHomeMixin } from '../../utils/mixin'
+import HotSearchList from '../store/HotSearchList'
 export default {
   mixins: [storeHomeMixin],
-  components: {},
+  components: {
+    HotSearchList
+  },
   props: {},
   data () {
     return {
