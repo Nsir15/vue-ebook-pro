@@ -2,12 +2,12 @@
  * @Description:
  * @Author: MRNAN
  * @Date: 2020-07-16 20:51:21
- * @LastEditTime: 2020-07-18 17:50:11
+ * @LastEditTime: 2020-07-18 18:01:01
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/SearchBar.vue
 -->
 <template>
-  <div class="search-bar" :class="{'title-hidden' : !titleVisible }">
+  <div class="search-bar" :class="{'title-hidden' : !titleVisible,'hide-shadow':!shadowVisible }">
     <transition name="title-fade">
       <div class="search-bar-title-wrapper" v-show="titleVisible">
         <div class="title-text-wrapper">
@@ -40,7 +40,8 @@ export default {
   props: {},
   data () {
     return {
-      titleVisible: true
+      titleVisible: true,
+      shadowVisible: false
     }
   },
   watch: {
@@ -48,15 +49,26 @@ export default {
       console.log(offsetY)
       if (offsetY > 0) {
         this.titleVisible = false
+        this.showShadow()
       } else {
         this.titleVisible = true
+        this.hideShadow()
       }
     }
   },
   computed: {},
   created () {},
   mounted () {},
-  methods: {}
+  methods: {
+    showShadow () {
+      this.shadowVisible = true
+    },
+
+    hideShadow () {
+      this.shadowVisible = false
+    }
+
+  }
 }
 </script>
 
@@ -67,8 +79,12 @@ export default {
   height: px2rem(96);
   font-size: px2rem(14);
   z-index: 120;
+  box-shadow: 0 px2rem(2) px2rem(2) rgba(0,0,0,0.1);
   &.title-hidden {
     height: px2rem(52);
+  }
+  &.hide-shadow{
+    box-shadow: none;
   }
   .search-bar-title-wrapper {
     position: absolute;
