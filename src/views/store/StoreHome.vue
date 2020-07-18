@@ -2,7 +2,7 @@
  * @Description:
  * @Author: MRNAN
  * @Date: 2020-07-16 20:45:20
- * @LastEditTime: 2020-07-18 16:06:57
+ * @LastEditTime: 2020-07-18 17:33:10
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/views/store/StoreHome.vue
 -->
@@ -10,7 +10,7 @@
  <div class="store-home">
   <search-bar></search-bar>
   <!-- 因为它是一个字面 prop，它的值是字符串 "1" 而不是 number。如果想传递一个实际的 number，需要使用 v-bind，从而让它的值被当作JS表达式计算  -->
-  <scroll :top= '96' @onScroll='onScroll'>
+  <scroll :top= 'scrollTop' @onScroll='onScroll' ref="scroll">
     <div v-for="(item,index) in 40" :key="index">{{index}}</div>
   </scroll>
  </div>
@@ -27,6 +27,7 @@ export default {
   props: {},
   data () {
     return {
+      scrollTop: 96
     }
   },
   computed: {},
@@ -39,6 +40,13 @@ export default {
   methods: {
     onScroll (offsetY) {
       this.setOffsetY(offsetY)
+      if (offsetY > 0) {
+        this.scrollTop = 52
+      } else {
+        this.scrollTop = 96
+      }
+      // 刷新一下尺寸
+      this.$refs.scroll.init()
     }
   }
 }
