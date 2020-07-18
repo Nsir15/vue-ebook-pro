@@ -2,14 +2,15 @@
  * @Description:
  * @Author: MRNAN
  * @Date: 2020-07-16 20:45:20
- * @LastEditTime: 2020-07-18 15:59:16
+ * @LastEditTime: 2020-07-18 16:04:15
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/views/store/StoreHome.vue
 -->
 <template>
  <div class="store-home">
   <search-bar v-show="searchBarVisible"></search-bar>
-  <scroll top= 96 @onScroll='onScroll'>
+  <!-- 因为它是一个字面 prop，它的值是字符串 "1" 而不是 number。如果想传递一个实际的 number，需要使用 v-bind，从而让它的值被当作JS表达式计算  -->
+  <scroll :top= '96' @onScroll='onScroll'>
     <div v-for="(item,index) in 40" :key="index">{{index}}</div>
   </scroll>
  </div>
