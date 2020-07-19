@@ -2,7 +2,7 @@
  * @Description:
  * @Author: MRNAN
  * @Date: 2020-07-16 20:51:21
- * @LastEditTime: 2020-07-19 16:19:01
+ * @LastEditTime: 2020-07-19 16:24:47
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/SearchBar.vue
 -->
@@ -102,8 +102,10 @@ export default {
       this.hotSearchVisible = false
       if (this.offsetY > 0) {
         this.showShadow()
+        this.hideTitle()
       } else {
         this.hideShadow()
+        this.showTitle()
       }
     },
 
