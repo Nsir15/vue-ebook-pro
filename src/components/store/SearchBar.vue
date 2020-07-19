@@ -2,7 +2,7 @@
  * @Description:
  * @Author: MRNAN
  * @Date: 2020-07-16 20:51:21
- * @LastEditTime: 2020-07-18 18:30:05
+ * @LastEditTime: 2020-07-19 15:51:51
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/SearchBar.vue
 -->
@@ -19,7 +19,7 @@
         </div>
       </div>
     </transition>
-    <div class="title-icon-back-wrapper" :class="{'title-hidden':!titleVisible}">
+    <div class="title-icon-back-wrapper" :class="{'title-hidden':!titleVisible}" @click="handleBack">
       <span class="icon-back"></span>
     </div>
     <div class="search-bar-input-wrapper" :class="{'title-hidden':!titleVisible}">
@@ -27,11 +27,11 @@
       <div class="search-bar-blank" :class="{'title-hidden':!titleVisible}"></div>
       <div class="search-bar-input">
         <span class="icon-search"></span>
-        <input type="text" :placeholder="$t('home.hint')" />
+        <input type="text" :placeholder="$t('home.hint')"  @click="handleInputClick"/>
       </div>
     </div>
   </div>
-  <hot-search-list></hot-search-list>
+  <hot-search-list v-show="hotSearchVisible"></hot-search-list>
 </div>
 </template>
 
@@ -47,7 +47,8 @@ export default {
   data () {
     return {
       titleVisible: true,
-      shadowVisible: false
+      shadowVisible: false,
+      hotSearchVisible: false
     }
   },
   watch: {
@@ -72,8 +73,23 @@ export default {
 
     hideShadow () {
       this.shadowVisible = false
-    }
+    },
 
+    showHotSearch () {
+      this.hotSearchVisible = true
+    },
+
+    hideHotSearch () {
+      this.hotSearchVisible = false
+    },
+
+    handleInputClick () {
+      this.showHotSearch()
+    },
+
+    handleBack () {
+      this.hideHotSearch()
+    }
   }
 }
 </script>
@@ -118,6 +134,7 @@ export default {
     top: 0;
     height: px2rem(42);
     @include center;
+    z-index: 130;
     transition: height .2s linear;
     &.title-hidden{
       height: px2rem(52);
