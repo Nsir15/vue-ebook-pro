@@ -2,7 +2,7 @@
  * @Description:
  * @Author: MRNAN
  * @Date: 2020-07-16 20:51:21
- * @LastEditTime: 2020-07-19 15:51:51
+ * @LastEditTime: 2020-07-19 16:19:01
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/SearchBar.vue
 -->
@@ -31,7 +31,7 @@
       </div>
     </div>
   </div>
-  <hot-search-list v-show="hotSearchVisible"></hot-search-list>
+  <hot-search-list v-show="hotSearchVisible" ref="hotSearchList"></hot-search-list>
 </div>
 </template>
 
@@ -55,10 +55,17 @@ export default {
     offsetY (offsetY) {
       console.log(offsetY)
       if (offsetY > 0) {
-        this.titleVisible = false
+        this.hideTitle()
         this.showShadow()
       } else {
-        this.titleVisible = true
+        this.showTitle()
+        this.hideShadow()
+      }
+    },
+    hotSearchOffsetY (offsetY) {
+      if (offsetY > 0) {
+        this.showShadow()
+      } else {
         this.hideShadow()
       }
     }
@@ -67,6 +74,14 @@ export default {
   created () {},
   mounted () {},
   methods: {
+    hideTitle () {
+      this.titleVisible = false
+    },
+
+    showTitle () {
+      this.titleVisible = true
+    },
+
     showShadow () {
       this.shadowVisible = true
     },
@@ -77,13 +92,23 @@ export default {
 
     showHotSearch () {
       this.hotSearchVisible = true
+      this.hideShadow()
+      this.$nextTick(_ => {
+        this.$refs.hotSearchList.reset()
+      })
     },
 
     hideHotSearch () {
       this.hotSearchVisible = false
+      if (this.offsetY > 0) {
+        this.showShadow()
+      } else {
+        this.hideShadow()
+      }
     },
 
     handleInputClick () {
+      this.hideTitle()
       this.showHotSearch()
     },
 

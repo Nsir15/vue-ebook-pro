@@ -37,7 +37,9 @@ export default {
       const offsetY = e.target.scrollTop || window.pageYOffset || document.body.scrollTop
       this.$emit('onScroll', offsetY)
     },
-
+    scrollTo (x, y) {
+      this.$refs.scrollWrapper.scrollTo(x, y)
+    },
     init () {
       if (this.$refs.scrollWrapper) {
         this.$refs.scrollWrapper.style.height = window.innerHeight - realPx(this.top) - realPx(this.bottom) + 'px'
