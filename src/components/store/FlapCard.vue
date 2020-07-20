@@ -2,7 +2,7 @@
  * @Description: 推荐的弹出动画
  * @Author: MRNAN
  * @Date: 2020-07-20 10:49:06
- * @LastEditTime: 2020-07-20 21:31:17
+ * @LastEditTime: 2020-07-20 21:38:02
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/FlapCard.vue
 -->
@@ -129,6 +129,7 @@ export default {
       // 因为backCard.rotateDegree 默认是0 ，-=10 一直是负值。动画初始装状态应该将back 先转 180度
       const backCard = this.flapCardList[this.backIndex]
       backCard.rotateDegree = 180
+      backCard._g = backCard._g - 5 * 18
       this.rotate(this.backIndex, kBACKGROUND)
     },
     startFlapCardAnimation () {
@@ -138,6 +139,8 @@ export default {
       this.flapTask = setInterval(() => {
         frontCard.rotateDegree += 10
         backCard.rotateDegree -= 10
+        frontCard._g -= 5
+        backCard._g += 5
         if (frontCard.rotateDegree === 90 && backCard.rotateDegree === 90) {
           // 前面已经转到了90度，背面也转到了90度，此时需要切换index ,让背面开始显示出来
           backCard.zIndex += 2
