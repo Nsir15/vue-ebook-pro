@@ -2,7 +2,7 @@
  * @Description:
  * @Author: MRNAN
  * @Date: 2020-07-16 20:51:21
- * @LastEditTime: 2020-07-19 16:24:47
+ * @LastEditTime: 2020-07-20 14:53:20
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/SearchBar.vue
 -->
@@ -14,7 +14,7 @@
         <div class="title-text-wrapper">
           <span class="title-text-title">{{$t('home.title')}}</span>
         </div>
-        <div class="title-icon-shake-wrapper">
+        <div class="title-icon-shake-wrapper" @click="handleRecommend">
           <span class="icon-shake"></span>
         </div>
       </div>
@@ -116,6 +116,9 @@ export default {
 
     handleBack () {
       this.hideHotSearch()
+    },
+    handleRecommend () {
+      this.setFlapCardVisible(true)
     }
   }
 }

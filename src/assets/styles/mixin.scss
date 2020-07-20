@@ -37,6 +37,15 @@ $ratio : 375 / 10;
   word-break: keep-all;
 }
 
+@mixin absCenter{
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom:0;
+  right: 0;
+  margin: auto;
+}
+
 .icon{
   font-size: px2rem(15);
 }

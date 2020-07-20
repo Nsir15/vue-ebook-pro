@@ -13,17 +13,19 @@
   <scroll :top= 'scrollTop' @onScroll='onScroll' ref="scroll">
     <div v-for="(item,index) in 40" :key="index">{{index}}</div>
   </scroll>
+  <flap-card v-show="flapCardVisible"></flap-card>
  </div>
 </template>
 
 <script>
 import SearchBar from '../../components/store/SearchBar'
 import Scroll from '../../components/common/Scroll'
+import FlapCard from '../../components/store/FlapCard'
 import { storeHomeMixin } from '../../utils/mixin'
 
 export default {
   mixins: [storeHomeMixin],
-  components: { SearchBar, Scroll },
+  components: { SearchBar, Scroll, FlapCard },
   props: {},
   data () {
     return {
@@ -47,6 +49,9 @@ export default {
       }
       // 刷新一下尺寸
       this.$refs.scroll.init()
+    },
+    closeFlapCard () {
+
     }
   }
 }
