@@ -2,7 +2,7 @@
  * @Description: 推荐的弹出动画
  * @Author: MRNAN
  * @Date: 2020-07-20 10:49:06
- * @LastEditTime: 2020-07-20 16:50:15
+ * @LastEditTime: 2020-07-20 21:16:07
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/FlapCard.vue
 -->
@@ -10,8 +10,8 @@
  <div class="flap-card-wrapper">
    <div class="flap-card-bg">
      <div class="flap-card" v-for="(item,index) in flapCardList" :key="index">
-       <div class="flap-card-semi-circle-left" :style="semiCircleStyle(item,'left')"></div>
-       <div class="flap-card-semi-circle-right" :style="semiCircleStyle(item,'right')"></div>
+       <div class="flap-card-semi-circle-left" :style="semiCircleStyle(item,'left')" ref="left"></div>
+       <div class="flap-card-semi-circle-right" :style="semiCircleStyle(item,'right')" ref="right"></div>
      </div>
    </div>
    <div class="flap-card-close" @click="handleClose">
@@ -21,7 +21,11 @@
 </template>
 
 <script>
+
 import { storeHomeMixin } from '../../utils/mixin'
+
+const KFRONT = 'front'
+const kBACKGROUND = 'background'
 export default {
   mixins: [storeHomeMixin],
   components: {},
@@ -84,7 +88,9 @@ export default {
           zIndex: 96,
           rotateDegree: 0
         }
-      ]
+      ],
+      frontIndex: 0, // 默认正面的下标
+      backIndex: 1 // 默认背面的开始下标
     }
   },
   computed: {},
@@ -92,12 +98,13 @@ export default {
 
   },
   mounted () {
-
+    this.startFlapCardAnimation()
   },
   methods: {
     handleClose () {
       this.setFlapCardVisible(false)
     },
+    // 动态绑定style的
     semiCircleStyle (item, direction) {
       return {
         backgroundColor: `rgb(${item.r},${item.g},${item.b})`,
@@ -105,6 +112,29 @@ export default {
         zIndex: item.zIndex,
         backgroundImage: direction === 'left' ? item.imgLeft : item.imgRight
       }
+    },
+
+    rotate (index, type) {
+      const item = this.flapCardList[index]
+      let dom = null
+      if (type === KFRONT) {
+        dom = this.$refs.right[index]
+      } else {
+        dom = this.$refs.left[index]
+      }
+      dom.style.backgroundColor = `rgb(${item.r},${item._g},${item.b})`
+      dom.style.transform = `rotateY(${item.rotateDegree}deg)`
+    },
+    startFlapCardAnimation () {
+      const frontCard = this.flapCardList[this.frontIndex]
+      const backCard = this.flapCardList[this.backIndex]
+      this.flapTask = setInterval(() => {
+        frontCard.rotateDegree += 10
+        backCard.rotateDegree -= 10
+
+        this.rotate(this.frontIndex, KFRONT)
+        this.rotate(this.backIndex, kBACKGROUND)
+      }, 1000)
     }
   }
 }
@@ -138,12 +168,15 @@ export default {
         background-repeat: no-repeat;
         background-position: right center;
         border-radius: px2rem(24) 0 0 px2rem(24);
+        // 默认是以图片中心轴开始转，这里设置绕右侧转
+        transform-origin: right;
       }
       .flap-card-semi-circle-right{
         flex: 0 0 50%;
         background-repeat: no-repeat;
         background-position: left center;
         border-radius: 0 px2rem(24) px2rem(24) 0;
+        transform-origin: left;
       }
     }
   }
