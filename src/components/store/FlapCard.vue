@@ -2,7 +2,7 @@
  * @Description: 推荐的弹出动画
  * @Author: MRNAN
  * @Date: 2020-07-20 10:49:06
- * @LastEditTime: 2020-07-20 21:16:07
+ * @LastEditTime: 2020-07-20 21:31:17
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/FlapCard.vue
 -->
@@ -125,13 +125,23 @@ export default {
       dom.style.backgroundColor = `rgb(${item.r},${item._g},${item.b})`
       dom.style.transform = `rotateY(${item.rotateDegree}deg)`
     },
+    prepare () {
+      // 因为backCard.rotateDegree 默认是0 ，-=10 一直是负值。动画初始装状态应该将back 先转 180度
+      const backCard = this.flapCardList[this.backIndex]
+      backCard.rotateDegree = 180
+      this.rotate(this.backIndex, kBACKGROUND)
+    },
     startFlapCardAnimation () {
+      this.prepare()
       const frontCard = this.flapCardList[this.frontIndex]
       const backCard = this.flapCardList[this.backIndex]
       this.flapTask = setInterval(() => {
         frontCard.rotateDegree += 10
         backCard.rotateDegree -= 10
-
+        if (frontCard.rotateDegree === 90 && backCard.rotateDegree === 90) {
+          // 前面已经转到了90度，背面也转到了90度，此时需要切换index ,让背面开始显示出来
+          backCard.zIndex += 2
+        }
         this.rotate(this.frontIndex, KFRONT)
         this.rotate(this.backIndex, kBACKGROUND)
       }, 1000)
@@ -170,6 +180,8 @@ export default {
         border-radius: px2rem(24) 0 0 px2rem(24);
         // 默认是以图片中心轴开始转，这里设置绕右侧转
         transform-origin: right;
+        // 转到背面隐藏
+        backface-visibility: hidden;
       }
       .flap-card-semi-circle-right{
         flex: 0 0 50%;
@@ -177,6 +189,7 @@ export default {
         background-position: left center;
         border-radius: 0 px2rem(24) px2rem(24) 0;
         transform-origin: left;
+        backface-visibility: hidden;
       }
     }
   }
