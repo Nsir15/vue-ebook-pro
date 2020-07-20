@@ -2,14 +2,14 @@
  * @Description: 推荐的弹出动画
  * @Author: MRNAN
  * @Date: 2020-07-20 10:49:06
- * @LastEditTime: 2020-07-20 21:38:02
+ * @LastEditTime: 2020-07-20 22:54:55
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/FlapCard.vue
 -->
 <template>
  <div class="flap-card-wrapper">
    <div class="flap-card-bg">
-     <div class="flap-card" v-for="(item,index) in flapCardList" :key="index">
+     <div class="flap-card" v-for="(item,index) in flapCardList" :key="index" :style="{zIndex:item.zIndex}">
        <div class="flap-card-semi-circle-left" :style="semiCircleStyle(item,'left')" ref="left"></div>
        <div class="flap-card-semi-circle-right" :style="semiCircleStyle(item,'right')" ref="right"></div>
      </div>
@@ -109,7 +109,6 @@ export default {
       return {
         backgroundColor: `rgb(${item.r},${item.g},${item.b})`,
         backgroundSize: item.backgroundSize,
-        zIndex: item.zIndex,
         backgroundImage: direction === 'left' ? item.imgLeft : item.imgRight
       }
     },
@@ -132,22 +131,65 @@ export default {
       backCard._g = backCard._g - 5 * 18
       this.rotate(this.backIndex, kBACKGROUND)
     },
-    startFlapCardAnimation () {
-      this.prepare()
+    next () {
+      // 复原
       const frontCard = this.flapCardList[this.frontIndex]
       const backCard = this.flapCardList[this.backIndex]
+      frontCard._g = frontCard.g
+      backCard._g = backCard.g
+      frontCard.rotateDegree = 0
+      backCard.rotateDegree = 0
+      this.rotate(this.frontIndex, KFRONT)
+      this.rotate(this.backIndex, kBACKGROUND)
+
+      // 继续
+      this.frontIndex++
+      if (this.frontIndex >= this.flapCardList.length) {
+        this.frontIndex = 0
+      }
+      this.backIndex++
+      if (this.backIndex >= this.flapCardList.length) {
+        this.backIndex = 0
+      }
+
+      // 更新zIndex
+      /**
+       * 100 -- 96
+       * 99 -- 100
+       * 98 -- 99
+       * 97 -- 98
+       * 96 -- 97
+       */
+      this.flapCardList.forEach((item, index) => {
+        item.zIndex = 100 - ((index - this.frontIndex + this.flapCardList.length) % this.flapCardList.length)
+      })
+
+      this.prepare()
+    },
+    flapCardRotate () {
+      const frontCard = this.flapCardList[this.frontIndex]
+      const backCard = this.flapCardList[this.backIndex]
+
+      frontCard.rotateDegree += 10
+      backCard.rotateDegree -= 10
+      frontCard._g -= 5
+      backCard._g += 5
+      if (frontCard.rotateDegree === 90 && backCard.rotateDegree === 90) {
+        // 前面已经转到了90度，背面也转到了90度，此时需要切换index ,让背面开始显示出来
+        backCard.zIndex += 2
+      }
+      this.rotate(this.frontIndex, KFRONT)
+      this.rotate(this.backIndex, kBACKGROUND)
+
+      if (frontCard.rotateDegree === 180 && backCard.rotateDegree === 0) {
+        this.next()
+      }
+    },
+    startFlapCardAnimation () {
+      this.prepare()
       this.flapTask = setInterval(() => {
-        frontCard.rotateDegree += 10
-        backCard.rotateDegree -= 10
-        frontCard._g -= 5
-        backCard._g += 5
-        if (frontCard.rotateDegree === 90 && backCard.rotateDegree === 90) {
-          // 前面已经转到了90度，背面也转到了90度，此时需要切换index ,让背面开始显示出来
-          backCard.zIndex += 2
-        }
-        this.rotate(this.frontIndex, KFRONT)
-        this.rotate(this.backIndex, kBACKGROUND)
-      }, 1000)
+        this.flapCardRotate()
+      }, 45)
     }
   }
 }
@@ -173,7 +215,6 @@ export default {
     .flap-card{
       width: px2rem(48);
       height: px2rem(48);
-      background:orange;
       @include absCenter;
       display: flex;
       .flap-card-semi-circle-left{
