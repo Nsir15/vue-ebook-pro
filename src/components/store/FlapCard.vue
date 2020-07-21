@@ -2,7 +2,7 @@
  * @Description: 推荐的弹出动画
  * @Author: MRNAN
  * @Date: 2020-07-20 10:49:06
- * @LastEditTime: 2020-07-20 22:54:55
+ * @LastEditTime: 2020-07-21 15:26:50
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/FlapCard.vue
 -->
@@ -93,16 +93,28 @@ export default {
       backIndex: 1 // 默认背面的开始下标
     }
   },
+  watch: {
+    flapCardVisible (value) {
+      if (value) {
+        this.startFlapCardAnimation()
+      }
+    }
+  },
   computed: {},
   created () {
 
   },
   mounted () {
-    this.startFlapCardAnimation()
+    // 书城首页刚加载就会加载这里，不能在这里开启动画
+    // this.startFlapCardAnimation()
   },
   methods: {
     handleClose () {
       this.setFlapCardVisible(false)
+      if (this.flapTask) {
+        clearInterval(this.flapTask)
+      }
+      this.reset()
     },
     // 动态绑定style的
     semiCircleStyle (item, direction) {
@@ -190,6 +202,17 @@ export default {
       this.flapTask = setInterval(() => {
         this.flapCardRotate()
       }, 45)
+    },
+    reset () {
+      this.frontIndex = 0
+      this.backIndex = 1
+      this.flapCardList.forEach((item, index) => {
+        item._g = item.g
+        item.rotateDegree = 0
+        item.zIndex = 100 - index
+        this.rotate(index, KFRONT)
+        this.rotate(index, kBACKGROUND)
+      })
     }
   }
 }
