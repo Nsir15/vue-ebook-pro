@@ -2,7 +2,7 @@
  * @Description: 推荐的弹出动画
  * @Author: MRNAN
  * @Date: 2020-07-20 10:49:06
- * @LastEditTime: 2020-07-21 15:26:50
+ * @LastEditTime: 2020-07-21 15:43:48
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/FlapCard.vue
 -->
@@ -96,7 +96,10 @@ export default {
   watch: {
     flapCardVisible (value) {
       if (value) {
-        this.startFlapCardAnimation()
+        // flapcard 出场动画会执行.3s,等出场之后再开始执行翻转动画
+        setTimeout(() => {
+          this.startFlapCardAnimation()
+        }, 300)
       }
     }
   },
@@ -235,6 +238,22 @@ export default {
     width: px2rem(64);
     height: px2rem(64);
     @include absCenter;
+    animation: scale .3s ease-in 1 both;
+    @keyframes scale {
+      0% {
+        opacity: 0;
+        transform: scale(0);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.3);
+      }
+
+      100%{
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
     .flap-card{
       width: px2rem(48);
       height: px2rem(48);
