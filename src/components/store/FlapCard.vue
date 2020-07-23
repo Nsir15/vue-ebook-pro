@@ -2,7 +2,7 @@
  * @Description: 推荐的弹出动画
  * @Author: MRNAN
  * @Date: 2020-07-20 10:49:06
- * @LastEditTime: 2020-07-21 15:43:48
+ * @LastEditTime: 2020-07-23 15:06:15
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/FlapCard.vue
 -->
@@ -13,6 +13,9 @@
        <div class="flap-card-semi-circle-left" :style="semiCircleStyle(item,'left')" ref="left"></div>
        <div class="flap-card-semi-circle-right" :style="semiCircleStyle(item,'right')" ref="right"></div>
      </div>
+   </div>
+   <div class="point-wrapper">
+     <div class="point" v-for="(item,index) in 18" :key="index"></div>
    </div>
    <div class="flap-card-close" @click="handleClose">
      <span class="icon-close"></span>
@@ -223,6 +226,8 @@ export default {
 
 <style scoped lang="scss">
 @import '../../assets/styles/global';
+@import '../../assets/styles/flapCardPoint';
+
 .flap-card-wrapper{
   position: absolute;
   left: 0;
@@ -276,6 +281,22 @@ export default {
         border-radius: 0 px2rem(24) px2rem(24) 0;
         transform-origin: left;
         backface-visibility: hidden;
+      }
+    }
+  }
+
+  .point-wrapper{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    .point{
+      border-radius: 50%;
+      transform: scale(0);
+      @include absCenter;
+      @for $i from 1 through length($moves){
+        &:nth-child(#{$i}){
+          @include move($i)
+        }
       }
     }
   }
