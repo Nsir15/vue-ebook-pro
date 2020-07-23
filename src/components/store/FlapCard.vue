@@ -2,7 +2,7 @@
  * @Description: 推荐的弹出动画
  * @Author: MRNAN
  * @Date: 2020-07-20 10:49:06
- * @LastEditTime: 2020-07-23 15:59:24
+ * @LastEditTime: 2020-07-23 16:01:07
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/FlapCard.vue
 -->
@@ -255,6 +255,7 @@ export default {
     opacity: 0;
     @include absCenter;
     &.animation{
+      // 这里both 是关键，不然bg 会出现一次动画，然后又消失了，回到了初始转态
       animation: scale .3s ease-in 1 both;
       @keyframes scale {
         0% {
