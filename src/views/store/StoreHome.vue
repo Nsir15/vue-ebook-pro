@@ -2,7 +2,7 @@
  * @Description:
  * @Author: MRNAN
  * @Date: 2020-07-16 20:45:20
- * @LastEditTime: 2020-07-18 17:33:10
+ * @LastEditTime: 2020-07-23 22:43:29
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/views/store/StoreHome.vue
 -->
@@ -22,6 +22,7 @@ import SearchBar from '../../components/store/SearchBar'
 import Scroll from '../../components/common/Scroll'
 import FlapCard from '../../components/store/FlapCard'
 import { storeHomeMixin } from '../../utils/mixin'
+import { home } from '../../api/book'
 
 export default {
   mixins: [storeHomeMixin],
@@ -37,7 +38,9 @@ export default {
 
   },
   mounted () {
-
+    home().then(({ data }) => {
+      console.log(data)
+    })
   },
   methods: {
     onScroll (offsetY) {
