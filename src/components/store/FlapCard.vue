@@ -2,13 +2,13 @@
  * @Description: 推荐的弹出动画
  * @Author: MRNAN
  * @Date: 2020-07-20 10:49:06
- * @LastEditTime: 2020-07-23 15:06:15
+ * @LastEditTime: 2020-07-23 15:59:24
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/FlapCard.vue
 -->
 <template>
  <div class="flap-card-wrapper">
-   <div class="flap-card-bg">
+   <div class="flap-card-bg" :class="{'animation':flapCardAnimationShow}">
      <div class="flap-card" v-for="(item,index) in flapCardList" :key="index" :style="{zIndex:item.zIndex}">
        <div class="flap-card-semi-circle-left" :style="semiCircleStyle(item,'left')" ref="left"></div>
        <div class="flap-card-semi-circle-right" :style="semiCircleStyle(item,'right')" ref="right"></div>
@@ -92,6 +92,7 @@ export default {
           rotateDegree: 0
         }
       ],
+      flapCardAnimationShow: false,
       frontIndex: 0, // 默认正面的下标
       backIndex: 1 // 默认背面的开始下标
     }
@@ -204,10 +205,18 @@ export default {
       }
     },
     startFlapCardAnimation () {
+      this.flapCardAnimationShow = true
       this.prepare()
       this.flapTask = setInterval(() => {
         this.flapCardRotate()
       }, 45)
+    },
+    stopFlapCardAnimation () {
+      this.flapCardAnimationShow = false
+      if (this.flapTask) {
+        clearInterval(this.flapTask)
+      }
+      this.reset()
     },
     reset () {
       this.frontIndex = 0
@@ -242,23 +251,28 @@ export default {
     background: white;
     width: px2rem(64);
     height: px2rem(64);
+    transform: scale(0);
+    opacity: 0;
     @include absCenter;
-    animation: scale .3s ease-in 1 both;
-    @keyframes scale {
-      0% {
-        opacity: 0;
-        transform: scale(0);
-      }
-      60% {
-        opacity: 1;
-        transform: scale(1.3);
-      }
+    &.animation{
+      animation: scale .3s ease-in 1 both;
+      @keyframes scale {
+        0% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        60% {
+          opacity: 1;
+          transform: scale(1.3);
+        }
 
-      100%{
-        opacity: 1;
-        transform: scale(1);
+        100%{
+          opacity: 1;
+          transform: scale(1);
+        }
       }
     }
+
     .flap-card{
       width: px2rem(48);
       height: px2rem(48);
