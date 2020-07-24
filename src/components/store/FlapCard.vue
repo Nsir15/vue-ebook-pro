@@ -2,7 +2,7 @@
  * @Description: 推荐的弹出动画
  * @Author: MRNAN
  * @Date: 2020-07-20 10:49:06
- * @LastEditTime: 2020-07-23 16:01:07
+ * @LastEditTime: 2020-07-24 14:57:54
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/FlapCard.vue
 -->
@@ -16,6 +16,16 @@
    </div>
    <div class="point-wrapper">
      <div class="point" v-for="(item,index) in 18" :key="index"></div>
+   </div>
+   <div class="book-card">
+     <div class="img-wrapper">
+       <img src="" alt="">
+     </div>
+     <div class="content-wrapper">
+       <div class="title">Ukrainian Migration to the European Union</div>
+       <div class="author">lena Fedyuk and Marta Kindler</div>
+     </div>
+     <div class="read-btn">立即阅读</div>
    </div>
    <div class="flap-card-close" @click="handleClose">
      <span class="icon-close"></span>
@@ -245,7 +255,7 @@ export default {
   height: 100%;
   z-index: 2000;
   background: rgba(0,0,0,0.6);
-
+  @include center;
   .flap-card-bg{
     border-radius: px2rem(5);
     background: white;
@@ -315,6 +325,52 @@ export default {
       }
     }
   }
+
+  .book-card{
+    background: white;
+    border-radius:px2rem(15);
+    width: 60%;
+    @include columnTop;
+    .img-wrapper{
+      margin-top:px2rem(10);
+      width: 100%;
+      @include center;
+      img{
+        height: px2rem(130);
+        width: px2rem(90);
+      }
+    }
+    .content-wrapper{
+      box-sizing: border-box;
+      padding: px2rem(10);
+      width: 100%;
+      text-align: center;
+      .title{
+        color: #333;
+        font-size: px2rem(18);
+        font-weight: 600;
+        line-height: px2rem(20);
+        max-height: px2rem(40);
+        @include ellipsis2(2);
+      }
+      .author{
+        margin-top: px2rem(10);
+        font-size: px2rem(14);
+      }
+    }
+    .read-btn{
+      text-align: center;
+      width: 100%;
+      height: px2rem(44);
+      line-height: px2rem(44);
+      background: #4aabff;
+      color: white;
+      font-size: px2rem(15);
+      font-weight: 600;
+      border-radius: 0 0 px2rem(15) px2rem(15);
+    }
+  }
+
   .flap-card-close{
     position: absolute;
     left: 0;
