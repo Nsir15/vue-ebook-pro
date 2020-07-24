@@ -2,13 +2,13 @@
  * @Description: 推荐的弹出动画
  * @Author: MRNAN
  * @Date: 2020-07-20 10:49:06
- * @LastEditTime: 2020-07-24 14:57:54
+ * @LastEditTime: 2020-07-24 15:19:27
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/FlapCard.vue
 -->
 <template>
  <div class="flap-card-wrapper">
-   <div class="flap-card-bg" :class="{'animation':flapCardAnimationShow}">
+   <div class="flap-card-bg" :class="{'animation':flapCardAnimationShow}" v-show="flapCardAnimationShow">
      <div class="flap-card" v-for="(item,index) in flapCardList" :key="index" :style="{zIndex:item.zIndex}">
        <div class="flap-card-semi-circle-left" :style="semiCircleStyle(item,'left')" ref="left"></div>
        <div class="flap-card-semi-circle-right" :style="semiCircleStyle(item,'right')" ref="right"></div>
@@ -17,7 +17,7 @@
    <div class="point-wrapper">
      <div class="point" v-for="(item,index) in 18" :key="index"></div>
    </div>
-   <div class="book-card">
+   <div class="book-card" v-show="bookCardShow">
      <div class="img-wrapper">
        <img src="" alt="">
      </div>
@@ -104,7 +104,8 @@ export default {
       ],
       flapCardAnimationShow: false,
       frontIndex: 0, // 默认正面的下标
-      backIndex: 1 // 默认背面的开始下标
+      backIndex: 1, // 默认背面的开始下标
+      bookCardShow: false
     }
   },
   watch: {
@@ -128,6 +129,8 @@ export default {
   methods: {
     handleClose () {
       this.setFlapCardVisible(false)
+      this.flapCardAnimationShow = false
+      this.bookCardShow = false
       if (this.flapTask) {
         clearInterval(this.flapTask)
       }
@@ -220,6 +223,11 @@ export default {
       this.flapTask = setInterval(() => {
         this.flapCardRotate()
       }, 45)
+
+      this.stopTimeout = setTimeout(() => {
+        this.stopFlapCardAnimation()
+        this.bookCardShow = true
+      }, 2500)
     },
     stopFlapCardAnimation () {
       this.flapCardAnimationShow = false
@@ -331,6 +339,25 @@ export default {
     border-radius:px2rem(15);
     width: 60%;
     @include columnTop;
+    transform: scale(0);
+    opacity: 0;
+    animation: move .3s ease-in  1  both;
+    @keyframes move {
+      0%{
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      60%{
+        opacity: 0.6;
+        transform: scale(0.6);
+      }
+
+      100%{
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
     .img-wrapper{
       margin-top:px2rem(10);
       width: 100%;
