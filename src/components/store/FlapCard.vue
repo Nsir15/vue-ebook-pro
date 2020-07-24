@@ -2,7 +2,7 @@
  * @Description: 推荐的弹出动画
  * @Author: MRNAN
  * @Date: 2020-07-20 10:49:06
- * @LastEditTime: 2020-07-24 15:19:27
+ * @LastEditTime: 2020-07-24 15:25:26
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/FlapCard.vue
 -->
@@ -112,7 +112,8 @@ export default {
     flapCardVisible (value) {
       if (value) {
         // flapcard 出场动画会执行.3s,等出场之后再开始执行翻转动画
-        setTimeout(() => {
+
+        this.startTimeout = setTimeout(() => {
           this.startFlapCardAnimation()
         }, 300)
       }
@@ -133,6 +134,15 @@ export default {
       this.bookCardShow = false
       if (this.flapTask) {
         clearInterval(this.flapTask)
+      }
+
+      // 将 timeout 也清除掉。不然在卡片翻转动画过程中点击关闭。会导致再次进来时直接显示了推荐book的Card 等奇怪问题。
+      // 主要原因就是因为关闭的时候虽然将状态都初始化了。但是timeout 异步任务可能还在排队等待中，到了时间又会将状态值修改
+      if (this.startTimeout) {
+        clearTimeout(this.startTimeout)
+      }
+      if (this.stopTimeout) {
+        clearTimeout(this.stopTimeout)
       }
       this.reset()
     },
