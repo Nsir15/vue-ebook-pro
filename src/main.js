@@ -5,7 +5,7 @@ import store from './store'
 import i18n from './lang'
 
 import './mock'
-import { http } from './utils/httpRequest'
+import http from './utils/httpRequest'
 
 import './assets/styles/icon.css'
 import './assets/styles/global.scss'

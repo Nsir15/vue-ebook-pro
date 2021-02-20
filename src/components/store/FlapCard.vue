@@ -2,7 +2,7 @@
  * @Description: 推荐的弹出动画
  * @Author: MRNAN
  * @Date: 2020-07-20 10:49:06
- * @LastEditTime: 2020-07-24 15:25:26
+ * @LastEditTime: 2020-08-18 10:33:07
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/components/store/FlapCard.vue
 -->
@@ -19,13 +19,13 @@
    </div>
    <div class="book-card" v-show="bookCardShow">
      <div class="img-wrapper">
-       <img src="" alt="">
+       <img :src="randomBookData ? randomBookData.cover : ''" alt="">
      </div>
      <div class="content-wrapper">
-       <div class="title">Ukrainian Migration to the European Union</div>
-       <div class="author">lena Fedyuk and Marta Kindler</div>
+       <div class="title">{{randomBookData ? randomBookData.title :''}}</div>
+       <div class="author">{{randomBookData ? randomBookData.author :''}}</div>
      </div>
-     <div class="read-btn">立即阅读</div>
+     <div class="read-btn" @click.stop="showBookDetail(randomBookData)">立即阅读</div>
    </div>
    <div class="flap-card-close" @click="handleClose">
      <span class="icon-close"></span>
@@ -42,7 +42,9 @@ const kBACKGROUND = 'background'
 export default {
   mixins: [storeHomeMixin],
   components: {},
-  props: {},
+  props: {
+    randomBookData: Object
+  },
   data () {
     return {
       flapCardList: [
@@ -256,6 +258,18 @@ export default {
         this.rotate(index, KFRONT)
         this.rotate(index, kBACKGROUND)
       })
+    },
+
+    showBookDetail (book) {
+      console.log('showBookDetail')
+      // this.$router.replace()
+      this.$router.push({
+        path: 'detail',
+        query: {
+          fileName: book.fileName,
+          category: book.categoryText
+        }
+      })
     }
   }
 }
@@ -405,6 +419,7 @@ export default {
       font-size: px2rem(15);
       font-weight: 600;
       border-radius: 0 0 px2rem(15) px2rem(15);
+      cursor: pointer;
     }
   }
 

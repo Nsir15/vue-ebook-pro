@@ -24,6 +24,12 @@ const routes = [
       {
         path: 'home',
         component: () => import('../views/store/StoreHome.vue')
+        // meta: { key: 1 }
+      },
+      {
+        path: 'detail',
+        component: () => import('../views/store/Detail.vue')
+        // meta: { key: 2 }
       }
     ]
   }

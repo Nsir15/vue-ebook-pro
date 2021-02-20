@@ -2,7 +2,7 @@
  * @Description:
  * @Author: MRNAN
  * @Date: 2020-07-16 20:45:20
- * @LastEditTime: 2020-07-23 22:43:29
+ * @LastEditTime: 2020-08-18 10:21:14
  * @LastEditors: MRNAN
  * @FilePath: /Vue-ebook-pro/src/views/store/StoreHome.vue
 -->
@@ -13,7 +13,7 @@
   <scroll :top= 'scrollTop' @onScroll='onScroll' ref="scroll">
     <div v-for="(item,index) in 40" :key="index">{{index}}</div>
   </scroll>
-  <flap-card v-show="flapCardVisible"></flap-card>
+  <flap-card v-show="flapCardVisible" :randomBookData="randomBookData"></flap-card>
  </div>
 </template>
 
@@ -30,7 +30,8 @@ export default {
   props: {},
   data () {
     return {
-      scrollTop: 96
+      scrollTop: 96,
+      randomBookData: {}
     }
   },
   computed: {},
@@ -40,6 +41,8 @@ export default {
   mounted () {
     home().then(({ data }) => {
       console.log(data)
+      const randomIndex = Math.floor(Math.random() * data.random.length)
+      this.randomBookData = data.random[randomIndex]
     })
   },
   methods: {
